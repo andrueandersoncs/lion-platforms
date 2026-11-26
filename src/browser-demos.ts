@@ -4,6 +4,7 @@
  * client-side Ed25519 ProofEnvelope Verifier.
  */
 import { run } from "@lionlang/core/evaluation/evaluate";
+import { encodeWire } from "@lionlang/core/evaluation/wire";
 import { LogicDatabase } from "@lionlang/core/logic/database";
 import {
   createProofEnvelope,
@@ -32,14 +33,19 @@ const runLion = async (program: unknown, db: LogicDatabase = newDb()) =>
 // =========================================================================
 const GATE_POLICY: unknown[] = [
   "begin",
-  ["relation", "customer", ["id", "tier", "kyc_verified", "balance"]],
-  ["relation", "tier_limit", ["tier", "max_auto_refund"]],
-  ["relation", "proposed_refund", ["req_id", "cust_id", "amount"]],
+  ["relation", "customer", ["id", "tier", "kyc_verified", "balance"], { key: ["id"] }],
+  ["relation", "tier_limit", ["tier", "max_auto_refund"], { key: ["tier"] }],
+  ["relation", "proposed_refund", ["req_id", "cust_id", "amount"], { key: ["req_id"] }],
   ["relation", "approved_by_human", ["req_id"]],
-  ["fact", ["tier_limit", "standard", 100]],
-  ["fact", ["tier_limit", "pro", 500]],
-  ["fact", ["customer", "cust_alice", "pro", true, 1200]],
-  ["fact", ["customer", "cust_bob", "standard", false, 80]],
+  ["relation", "refund_allowed", ["req_id"]],
+  ["relation", "refund_denied_reason", ["req_id", "reason"]],
+  [
+    "fact",
+    ["tier_limit", "standard", 100],
+    ["tier_limit", "pro", 500],
+    ["customer", "cust_alice", "pro", true, 1200],
+    ["customer", "cust_bob", "standard", false, 80],
+  ],
   [
     "define",
     "apply_refund",
@@ -63,46 +69,39 @@ const GATE_POLICY: unknown[] = [
   [
     "rule",
     ["refund_denied_reason", "?req", "kyc_unverified"],
-    ["and", ["proposed_refund", "?req", "?c", "?_"], ["customer", "?c", "?_", false, "?_"]],
+    ["proposed_refund", "?req", "?c", "?_"],
+    ["customer", "?c", "?_", false, "?_"],
   ],
   [
     "rule",
     ["refund_denied_reason", "?req", "invalid_amount"],
-    ["and", ["proposed_refund", "?req", "?_", "?amt"], ["number/lessThanOrEqualTo", "?amt", 0]],
+    ["proposed_refund", "?req", "?_", "?amt"],
+    ["number/lessThanOrEqualTo", "?amt", 0],
   ],
   [
     "rule",
     ["refund_denied_reason", "?req", "exceeds_balance"],
-    [
-      "and",
-      ["proposed_refund", "?req", "?c", "?amt"],
-      ["customer", "?c", "?_", "?_", "?bal"],
-      ["number/greaterThan", "?amt", "?bal"],
-    ],
+    ["proposed_refund", "?req", "?c", "?amt"],
+    ["customer", "?c", "?_", "?_", "?bal"],
+    ["number/greaterThan", "?amt", "?bal"],
   ],
   [
     "rule",
     ["refund_denied_reason", "?req", "needs_human_approval"],
-    [
-      "and",
-      ["proposed_refund", "?req", "?c", "?amt"],
-      ["customer", "?c", "?tier", "?_", "?_"],
-      ["tier_limit", "?tier", "?cap"],
-      ["number/greaterThan", "?amt", "?cap"],
-      ["not", ["approved_by_human", "?req"]],
-    ],
+    ["proposed_refund", "?req", "?c", "?amt"],
+    ["customer", "?c", "?tier", true, "?_"],
+    ["tier_limit", "?tier", "?cap"],
+    ["number/greaterThan", "?amt", "?cap"],
+    ["not", ["approved_by_human", "?req"]],
   ],
   [
     "rule",
     ["refund_allowed", "?req"],
-    [
-      "and",
-      ["proposed_refund", "?req", "?c", "?amt"],
-      ["customer", "?c", "?_", true, "?bal"],
-      ["number/greaterThan", "?amt", 0],
-      ["number/lessThanOrEqualTo", "?amt", "?bal"],
-      ["not", ["refund_denied_reason", "?req", "?_"]],
-    ],
+    ["proposed_refund", "?req", "?c", "?amt"],
+    ["customer", "?c", "?_", true, "?bal"],
+    ["number/greaterThan", "?amt", 0],
+    ["number/lessThanOrEqualTo", "?amt", "?bal"],
+    ["not", ["refund_denied_reason", "?req", "?_"]],
   ],
 ];
 
@@ -120,22 +119,21 @@ export const demoGateEvaluate = async (opts: {
   readonly customerId: "cust_alice" | "cust_bob";
   readonly reqId: string;
 }): Promise<GateEvalResult> => {
-  const db = await newDb();
+  const db = newDb();
   await runLion(GATE_POLICY, db);
   const t0 = performance.now();
   const facts: unknown[] = [
-    ["fact", ["proposed_refund", opts.reqId, opts.customerId, opts.amount]],
+    ["proposed_refund", opts.reqId, opts.customerId, opts.amount],
   ];
   if (opts.approvedByHuman) {
-    facts.push(["fact", ["approved_by_human", opts.reqId]]);
+    facts.push(["approved_by_human", opts.reqId]);
   }
-  const change = facts.length === 1 ? facts[0] : ["begin", ...facts];
   const query = [
     "assuming",
-    change,
+    ["fact", ...facts],
     [
       "array/make",
-      ["find", ["refund_allowed", opts.reqId]],
+      ["find", true, ["refund_allowed", opts.reqId]],
       ["find", "?r", ["refund_denied_reason", opts.reqId, "?r"]],
     ],
   ];
@@ -177,7 +175,7 @@ export const demoGateEvaluate = async (opts: {
 };
 
 export const demoGateProve = async (kind: "safe" | "buggy") => {
-  const db = await newDb();
+  const db = newDb();
   await runLion(GATE_POLICY, db);
   const fnName = kind === "safe" ? "apply_refund" : "buggy_refund";
   const query = [
@@ -199,7 +197,7 @@ export const demoGateProve = async (kind: "safe" | "buggy") => {
     ],
   ];
   const t0 = performance.now();
-  const result = (await runLion(query, db)) as {
+  const rawResult = (await runLion(query, db)) as {
     counterexample?: unknown;
     proved: boolean;
     witness?: unknown;
@@ -211,9 +209,9 @@ export const demoGateProve = async (kind: "safe" | "buggy") => {
       database: db,
       issuer: "lion-gate-demo",
       keyPair: kp,
-      proof: result.proved ? result : undefined,
+      proof: rawResult.proved ? rawResult : undefined,
       query,
-      result: { fnName, kind, proved: result.proved },
+      result: { fnName, kind, proved: rawResult.proved },
     })
   );
   const ver = await Effect.runPromise(
@@ -222,7 +220,10 @@ export const demoGateProve = async (kind: "safe" | "buggy") => {
   return {
     envelope,
     latencyMs,
-    result,
+    result: encodeWire(rawResult) as {
+      counterexample?: unknown;
+      proved: boolean;
+    },
     verified: ver.valid && (ver.proofValid === null || ver.proofValid),
   };
 };
@@ -238,15 +239,19 @@ export const demoDossierCheckQuote = async (opts: {
   const t0 = performance.now();
   const check = (await runLion([
     "begin",
-    ["define", "contains", ["string/includes?", opts.sourceText, opts.quote]],
+    ["define", "contains", ["string/includes", opts.sourceText, opts.quote]],
     ["define", "nums", ["string/numbers", opts.quote]],
     {
       extractedNumbers: "nums",
       quoteInSource: "contains",
-      valueFoundInQuote: ["array/includes?", "nums", opts.value],
+      valueFoundInQuote: [
+        "array/some?",
+        "nums",
+        ["lambda", ["n"], ["value/equals?", "n", opts.value]],
+      ],
     },
   ])) as {
-    extractedNumbers: number[];
+    extractedNumbers: unknown[];
     quoteInSource: boolean;
     valueFoundInQuote: boolean;
   };
@@ -254,14 +259,16 @@ export const demoDossierCheckQuote = async (opts: {
   const accepted = check.quoteInSource && check.valueFoundInQuote;
   return {
     accepted,
+    extractedNumbers: encodeWire(check.extractedNumbers),
     httpStatus: accepted ? 201 : 422,
     latencyMs,
+    quoteInSource: check.quoteInSource,
     reason: !check.quoteInSource
       ? "HTTP 422: Quote is not a verbatim substring of the source document."
       : !check.valueFoundInQuote
-        ? `HTTP 422: Claimed number ${opts.value} does not match numbers extracted from quote (${JSON.stringify(check.extractedNumbers)}).`
+        ? `HTTP 422: Claimed number ${opts.value} does not match numbers extracted from quote (${JSON.stringify(encodeWire(check.extractedNumbers))}).`
         : "HTTP 201: Grounded claim verified verbatim + numeric match.",
-    ...check,
+    valueFoundInQuote: check.valueFoundInQuote,
   };
 };
 
@@ -269,7 +276,7 @@ export const demoDossierBoundsAndSign = async (opts: {
   readonly cogs: number;
   readonly revenue: number;
 }) => {
-  const db = await newDb();
+  const db = newDb();
   const query = [
     "proof/bounds",
     ["number/divide", ["number/subtract", "?r", "?c"], "?r"],
@@ -284,14 +291,14 @@ export const demoDossierBoundsAndSign = async (opts: {
     ],
   ];
   const t0 = performance.now();
-  const bounds = await runLion(query, db);
+  const rawBounds = await runLion(query, db);
   const kp = await getDemoKeyPair();
   const envelope = await Effect.runPromise(
     createProofEnvelope({
       database: db,
       issuer: "lion-dossier-demo",
       keyPair: kp,
-      proof: bounds,
+      proof: rawBounds,
       query,
       result: {
         cogsRange: [opts.cogs - 2, opts.cogs + 2],
@@ -304,7 +311,12 @@ export const demoDossierBoundsAndSign = async (opts: {
     verifyProofEnvelope(envelope, kp.publicKeyJwk)
   );
   const latencyMs = Math.round((performance.now() - t0) * 100) / 100;
-  return { bounds, envelope, latencyMs, verification };
+  return {
+    bounds: encodeWire(rawBounds),
+    envelope,
+    latencyMs,
+    verification,
+  };
 };
 
 // =========================================================================
@@ -315,47 +327,47 @@ export const demoFabricStaleness = async (opts: {
   readonly initialContent: string;
 }) => {
   const t0 = performance.now();
-  const db = await newDb();
+  const db = newDb();
   const res = (await runLion(
     [
       "begin",
-      ["relation", "artifact", ["path", "hash"]],
-      ["relation", "observation", ["id", "question", "value", "path", "observed_hash"]],
+      ["relation", "artifact", ["path", "hash"], { key: ["path"] }],
+      [
+        "relation",
+        "observation",
+        ["id", "question", "value", "path", "observed_hash"],
+        { key: ["id"] },
+      ],
+      ["relation", "stale_observation", ["id", "question"]],
+      ["relation", "fresh_observation", ["id", "question"]],
       [
         "rule",
         ["stale_observation", "?id", "?q"],
-        [
-          "and",
-          ["observation", "?id", "?q", "?_", "?path", "?old"],
-          ["artifact", "?path", "?cur"],
-          ["not", ["value/equal?", "?old", "?cur"]],
-        ],
+        ["observation", "?id", "?q", "?_", "?path", "?old"],
+        ["artifact", "?path", "?cur"],
+        ["not", ["value/equals?", "?old", "?cur"]],
       ],
       [
         "rule",
         ["fresh_observation", "?id", "?q"],
-        [
-          "and",
-          ["observation", "?id", "?q", "?_", "?path", "?old"],
-          ["artifact", "?path", "?old"],
-        ],
+        ["observation", "?id", "?q", "?_", "?path", "?old"],
+        ["artifact", "?path", "?old"],
       ],
       ["define", "h1", ["string/sha256", opts.initialContent]],
       ["define", "h2", ["string/sha256", opts.editedContent]],
-      ["fact", ["artifact", "services/checkout.ts", "h1"]],
-      ["fact", ["observation", "obs_1", "pool_exhausted", true, "services/checkout.ts", "h1"]],
-      ["fact", ["observation", "obs_2", "dns_timeout", false, "services/checkout.ts", "h1"]],
+      [
+        "fact",
+        ["artifact", "services/checkout.ts", "h1"],
+        ["observation", "obs_1", "pool_exhausted", true, "services/checkout.ts", "h1"],
+        ["observation", "obs_2", "dns_timeout", false, "services/checkout.ts", "h1"],
+      ],
       ["define", "beforeFresh", ["find", "?id", ["fresh_observation", "?id", "?_"]]],
       [
         "define",
         "blastRadius",
         [
           "assuming",
-          [
-            "begin",
-            ["retract", ["artifact", "services/checkout.ts", "h1"]],
-            ["fact", ["artifact", "services/checkout.ts", "h2"]],
-          ],
+          ["fact", ["artifact", "services/checkout.ts", "h2"]],
           ["find", "?id", ["stale_observation", "?id", "?_"]],
         ],
       ],
@@ -363,7 +375,7 @@ export const demoFabricStaleness = async (opts: {
         beforeFresh: "beforeFresh",
         editedHash: "h2",
         initialHash: "h1",
-        unchanged: ["value/equal?", "h1", "h2"],
+        unchanged: ["value/equals?", "h1", "h2"],
         wouldBecomeStale: "blastRadius",
       },
     ],
