@@ -3,264 +3,246 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Lion Gate — Verifiable Agent Policy &amp; Guardrail Cloud</title>
+    <title>Lion Gate — Verifiable Agent Policy Cloud</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <nav class="nav">
+    <nav class="nav" aria-label="Primary">
       <div class="nav-inner">
         <a class="brand" href="index.html">
-          <span class="brand-mark">LION</span>
-          <span>Gate</span>
+          <span class="brand-mark" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+              <path d="M3 13V3h3.2v7.2H13V13H3Z" fill="currentColor" />
+            </svg>
+          </span>
+          <span>Lion Gate</span>
         </a>
         <div class="nav-links">
-          <a href="index.html">Overview</a>
-          <a href="gate.html" class="active">Lion Gate</a>
-          <a href="dossier.html">Lion Dossier</a>
-          <a href="fabric.html">Lion Fabric</a>
-          <a href="benchmarks.html">Sonnet 5.5 Benchmarks</a>
-          <a href="verify.html">Proof Verifier</a>
+          <a href="gate.html" class="active">Gate</a>
+          <a href="dossier.html">Dossier</a>
+          <a href="fabric.html">Fabric</a>
+          <a href="benchmarks.html">Benchmarks</a>
+          <a href="verify.html">Verifier</a>
         </div>
       </div>
     </nav>
 
-    <header class="hero">
-      <div class="container">
-        <span class="pill"><span class="dot"></span> Verifiable Agent Policy &amp; Guardrail Cloud</span>
-        <h1>
-          Same 0% violation rate as Claude Sonnet —<br />
-          <span class="shine">251× faster</span>, $0 LLM cost, formally proved.
-        </h1>
-        <p class="lead">
-          Stop burning 1.8 seconds and $5 per 1,000 tool calls asking an LLM whether another LLM is allowed to issue a
-          refund or touch production IAM. Lion Gate evaluates relational Datalog policies inside an isolated
-          <code>assuming</code> sandbox, returns exact <code>why</code> self-correction hints, proves invariants across
-          all integers with <code>proof/prove</code>, and signs every decision with Ed25519.
-        </p>
-        <div class="actions">
-          <a class="btn btn-primary" href="#demo">Try Live Policy Sandbox ↓</a>
-          <a class="btn" href="#pricing">Pricing</a>
-          <a class="btn" href="benchmarks.html#gate">View 60-Case Sonnet Data</a>
-        </div>
+    <main>
+      <header class="hero">
+        <div class="wrap">
+          <h1>Guardrails at 7 ms, proved before deploy.</h1>
+          <p class="lead">
+            Replace slow prompt guardrails with a deterministic policy engine that
+            explains every denial, proves safety across all integers, and signs
+            every decision with Ed25519.
+          </p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#sandbox">Try live sandbox</a>
+          </div>
 
-        <div class="stat-strip">
-          <div class="stat">
-            <div class="stat-val green">7.11ms P50</div>
-            <div class="stat-label">vs. 1,789ms P50 for Sonnet prompt guardrail (1.11ms unloaded)</div>
-          </div>
-          <div class="stat">
-            <div class="stat-val">$0.00 / 1k</div>
-            <div class="stat-label">Marginal LLM guardrail cost (vs. ~$4.96/1k for Sonnet)</div>
-          </div>
-          <div class="stat">
-            <div class="stat-val green">60 / 60</div>
-            <div class="stat-label">Ed25519 + trusted-kernel verified audit receipts</div>
-          </div>
-          <div class="stat">
-            <div class="stat-val">41.8ms</div>
-            <div class="stat-label">100-request shadow-traffic policy diff replay</div>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <section id="demo" class="section">
-      <div class="container">
-        <div class="section-kicker">Live In-Browser Engine (@lionlang/core@0.19.0)</div>
-        <h2>Test a Policy Check &amp; Formal Proof Right Here</h2>
-        <p class="section-sub">
-          Everything below executes inside your browser using the real published <code>@lionlang/core@0.19.0</code>
-          Datalog evaluator, symbolic <code>proof/prove</code> solver, and Web Crypto Ed25519 signer.
-        </p>
-
-        <div class="demo-box" style="margin-bottom: 24px">
-          <div class="demo-header">
-            <strong>1. Runtime Agent Tool-Call Gate (<code>assuming</code> + <code>why</code> + Ed25519)</strong>
-            <div style="display: flex; gap: 8px; flex-wrap: wrap">
-              <button class="btn btn-sm" type="button" data-preset="legit">Legitimate $250</button>
-              <button class="btn btn-sm" type="button" data-preset="inject">Prompt Injection $900</button>
-              <button class="btn btn-sm" type="button" data-preset="kyc">KYC Unverified $25</button>
-              <button class="btn btn-sm" type="button" data-preset="overdraft">Overdraft $1,500</button>
-              <button class="btn btn-sm" type="button" data-preset="recover">Recoverable $750</button>
-            </div>
-          </div>
-          <div class="demo-body">
+          <div class="proof-strip">
             <div>
-              <div class="field">
-                <label for="gate-customer">Customer Record</label>
-                <select id="gate-customer">
-                  <option value="cust_alice">cust_alice (pro, KYC=true, balance=$1,200, cap=$500)</option>
-                  <option value="cust_bob">cust_bob (standard, KYC=false, balance=$80, cap=$100)</option>
-                </select>
-              </div>
-              <div class="field">
-                <label for="gate-amount">Proposed Refund Amount ($)</label>
-                <input id="gate-amount" type="number" value="750" />
-              </div>
-              <div class="field">
-                <label style="display: flex; align-items: center; gap: 8px; text-transform: none; color: var(--fg)">
-                  <input id="gate-approved" type="checkbox" />
-                  Verified Human Approval Token (system channel only)
-                </label>
-              </div>
-              <div style="display: flex; gap: 10px; flex-wrap: wrap">
-                <button class="btn btn-primary" type="button" id="gate-eval-btn">Evaluate in Lion Gate</button>
-                <button class="btn" type="button" id="gate-retry-btn" style="display: none">
-                  Auto-Retry with Human Approval →
-                </button>
-              </div>
+              <div class="proof-figure">251×</div>
+              <p class="proof-caption">Faster than Sonnet 5.5 as a guardrail.</p>
             </div>
             <div>
-              <div id="gate-status" class="status-banner">Click "Evaluate in Lion Gate" to run a real check.</div>
-              <pre id="gate-output" class="output">Waiting for evaluation...</pre>
-            </div>
-          </div>
-        </div>
-
-        <div class="demo-box">
-          <div class="demo-header">
-            <strong>2. Pre-Deploy Formal Safety Proof (<code>proof/prove</code> across ALL integers)</strong>
-            <div style="display: flex; gap: 8px; flex-wrap: wrap">
-              <button class="btn btn-primary btn-sm" type="button" id="prove-safe-btn">
-                Prove Safe apply_refund
-              </button>
-              <button class="btn btn-danger btn-sm" type="button" id="prove-buggy-btn">
-                Inject Buggy Policy (Find Counterexample)
-              </button>
-            </div>
-          </div>
-          <div class="demo-body">
-            <div>
-              <p style="font-size: 14px; color: var(--muted); margin-bottom: 12px">
-                Goal: prove <code>not (exists bal &ge; 0, amt &gt; 0 : fn(bal, amt) &lt; 0)</code> for every integer in
-                existence — not just unit test samples.
-              </p>
-              <pre class="output">Safe:  apply_refund(bal, amt) = amt &lt;= bal ? bal - amt : bal
-Buggy: buggy_refund(bal, amt) = bal - amt   // missing balance guard!</pre>
+              <div class="proof-figure">$0</div>
+              <p class="proof-caption">Marginal LLM cost per policy decision.</p>
             </div>
             <div>
-              <div id="prove-status" class="status-banner">Click either button to run Lion's symbolic proof engine.</div>
-              <pre id="prove-output" class="output">Waiting for proof run...</pre>
+              <div class="proof-figure">60 / 60</div>
+              <p class="proof-caption">Signed Ed25519 receipts verified.</p>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </header>
 
-    <section class="section">
-      <div class="container">
-        <div class="section-kicker">Live A/B Benchmark (60 Refund Cases)</div>
-        <h2>Claude Sonnet 5.5 Guardrail vs. Claude Sonnet 5.5 + Lion Gate</h2>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Arm</th>
-                <th>Violation Rate</th>
-                <th>Self-Correction</th>
-                <th>P50 / P95 Latency</th>
-                <th>Marginal LLM Cost</th>
-                <th>Formal Proofs</th>
-                <th>Signed Receipts</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Claude (<code>claude-sonnet-5-5</code>) Prompt Guardrail</td>
-                <td>0% (0/46)</td>
-                <td>100%</td>
-                <td class="warn">1,789ms / 2,884ms</td>
-                <td class="warn">$0.2973 / 60 (~$4.96/1k)</td>
-                <td class="warn">No</td>
-                <td class="warn">0 / 60</td>
-              </tr>
-              <tr class="highlight">
-                <td>Claude (<code>claude-sonnet-5-5</code>) + Lion Gate</td>
-                <td class="win">0% (0/46)</td>
-                <td class="win">100%</td>
-                <td class="win">7.11ms / 34.02ms</td>
-                <td class="win">$0.00</td>
-                <td class="win">Safe Proved + Bug Refuted</td>
-                <td class="win">60 / 60 Verified</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
+      <section id="sandbox" class="chamber">
+        <div class="wrap">
+          <h2>Test Lion Gate live.</h2>
+          <p class="lead">
+            Runs the real Lion engine directly in your browser.
+          </p>
 
-    <section id="pricing" class="section">
-      <div class="container">
-        <div class="section-kicker">Pricing</div>
-        <h2>Predictable usage pricing with cryptographic auditability included</h2>
-        <div class="grid-3">
-          <div class="card">
-            <h3>Starter</h3>
-            <div class="price">$49 <span>/ mo</span></div>
-            <ul class="bullet-list">
-              <li>100,000 gated policy evaluations / mo</li>
-              <li>Ed25519 signed receipts + verifier API</li>
-              <li>Fintech &amp; RBAC starter policy packs</li>
-            </ul>
-            <a class="btn btn-sm" href="mailto:andrue.anderson.cs@gmail.com?subject=Lion%20Gate%20Starter">Start Pilot →</a>
+          <div class="tabs" role="tablist" aria-label="Gate demos">
+            <button class="tab-btn" role="tab" aria-selected="true" id="tab-runtime" aria-controls="panel-runtime">
+              Runtime policy check
+            </button>
+            <button class="tab-btn" role="tab" aria-selected="false" id="tab-proof" aria-controls="panel-proof">
+              Pre-deploy formal proof
+            </button>
           </div>
-          <div class="card" style="border-color: var(--accent)">
-            <div class="card-head">
+
+          <div id="panel-runtime" class="tab-panel" role="tabpanel" aria-labelledby="tab-runtime">
+            <div class="instrument">
+              <div>
+                <div class="field">
+                  <label for="gate-scenario">Scenario</label>
+                  <select id="gate-scenario">
+                    <option value="recover">Recoverable $750 (Alice, over $500 cap)</option>
+                    <option value="legit">Valid $250 (Alice, within cap)</option>
+                    <option value="kyc">Unverified KYC $25 (Bob)</option>
+                    <option value="overdraft">Overdraft $1,500 (Alice, exceeds $1,200 balance)</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="gate-amount">Proposed refund ($)</label>
+                  <input id="gate-amount" type="number" value="750" />
+                </div>
+                <div class="field">
+                  <label style="display: flex; align-items: center; gap: 10px">
+                    <input id="gate-approved" type="checkbox" style="width: 18px; height: 18px; min-height: 0" />
+                    Verified human approval token
+                  </label>
+                </div>
+                <div class="actions" style="margin-top: 24px">
+                  <button class="btn btn-primary" type="button" id="gate-eval-btn">Evaluate</button>
+                  <button class="btn" type="button" id="gate-retry-btn" style="display: none">
+                    Retry with approval
+                  </button>
+                </div>
+              </div>
+
+              <div class="verdict-panel" aria-live="polite">
+                <div id="gate-verdict" class="verdict-word">Ready</div>
+                <p id="gate-summary" class="verdict-summary">Running initial scenario...</p>
+                <div class="facts-list">
+                  <div class="fact-row">
+                    <span class="fact-key">Latency</span>
+                    <span id="gate-latency" class="fact-val">—</span>
+                  </div>
+                  <div class="fact-row">
+                    <span class="fact-key">Reason</span>
+                    <span id="gate-reason" class="fact-val">—</span>
+                  </div>
+                  <div class="fact-row">
+                    <span class="fact-key">Ed25519 receipt</span>
+                    <span id="gate-verified" class="fact-val">—</span>
+                  </div>
+                </div>
+                <details class="drawer">
+                  <summary>Inspect signed JSON envelope</summary>
+                  <pre id="gate-output"></pre>
+                </details>
+              </div>
+            </div>
+          </div>
+
+          <div id="panel-proof" class="tab-panel" role="tabpanel" aria-labelledby="tab-proof" hidden>
+            <div class="instrument">
+              <div>
+                <p class="lead" style="margin-bottom: 24px">
+                  Prove that a refund rule can never produce a negative balance for any
+                  integer — or test a buggy rule to surface a counterexample.
+                </p>
+                <div class="actions">
+                  <button class="btn btn-primary" type="button" id="prove-safe-btn">Prove safe rule</button>
+                  <button class="btn" type="button" id="prove-buggy-btn">Inject buggy rule</button>
+                </div>
+              </div>
+
+              <div class="verdict-panel" aria-live="polite">
+                <div id="prove-verdict" class="verdict-word">Unchecked</div>
+                <p id="prove-summary" class="verdict-summary">Choose safe or buggy to run the solver.</p>
+                <div class="facts-list">
+                  <div class="fact-row">
+                    <span class="fact-key">Solver time</span>
+                    <span id="prove-latency" class="fact-val">—</span>
+                  </div>
+                  <div class="fact-row">
+                    <span class="fact-key">Counterexample</span>
+                    <span id="prove-ce" class="fact-val">—</span>
+                  </div>
+                  <div class="fact-row">
+                    <span class="fact-key">Kernel verified</span>
+                    <span id="prove-verified" class="fact-val">—</span>
+                  </div>
+                </div>
+                <details class="drawer">
+                  <summary>Inspect proof certificate</summary>
+                  <pre id="prove-output"></pre>
+                </details>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="pricing" class="band">
+        <div class="wrap">
+          <h2>Simple usage pricing.</h2>
+          <p class="lead">Every tier includes Ed25519 audit receipts and starter policy packs.</p>
+
+          <div class="pricing-grid">
+            <div>
+              <h3>Starter</h3>
+              <div class="tier-price">$49 / mo</div>
+              <p class="tier-copy">100k checks monthly, signed receipts, fintech and RBAC packs.</p>
+              <a class="btn" href="mailto:andrue.anderson.cs@gmail.com?subject=Lion%20Gate%20Starter">Start pilot</a>
+            </div>
+            <div>
               <h3>Growth</h3>
-              <span class="badge amber">Most Popular</span>
+              <div class="tier-price">$299 / mo</div>
+              <p class="tier-copy">1M checks, CI safety proofs, shadow diffs, 1-year audit logs.</p>
+              <a class="btn btn-primary" href="mailto:andrue.anderson.cs@gmail.com?subject=Lion%20Gate%20Growth">Request access</a>
             </div>
-            <div class="price">$299 <span>/ mo</span></div>
-            <ul class="bullet-list">
-              <li>1,000,000 gated evaluations / mo</li>
-              <li>CI/CD <code>proof/prove</code> safety gates &amp; shadow-traffic diffs</li>
-              <li>1-year immutable audit log retention + RBAC</li>
-            </ul>
-            <a class="btn btn-primary btn-sm" href="mailto:andrue.anderson.cs@gmail.com?subject=Lion%20Gate%20Growth">Request Access →</a>
-          </div>
-          <div class="card">
-            <h3>Enterprise / VPC</h3>
-            <div class="price">Custom</div>
-            <ul class="bullet-list">
-              <li>Self-hosted Docker / VPC sidecar (&lt;2ms local)</li>
-              <li>Custom HSM/KMS Ed25519 keys &amp; SOC2 exports</li>
-              <li>Dedicated policy engineering SLA</li>
-            </ul>
-            <a class="btn btn-sm" href="mailto:andrue.anderson.cs@gmail.com?subject=Lion%20Gate%20Enterprise">Talk to Founders →</a>
+            <div>
+              <h3>Enterprise</h3>
+              <div class="tier-price">Custom</div>
+              <p class="tier-copy">Self-hosted VPC sidecar, customer HSM keys, dedicated SLA.</p>
+              <a class="btn" href="mailto:andrue.anderson.cs@gmail.com?subject=Lion%20Gate%20Enterprise">Talk to us</a>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </main>
 
     <footer class="footer">
-      <div class="container footer-inner">
-        <div>Lion Gate — built on <code>@lionlang/core@0.19.0</code></div>
-        <div><a href="verify.html" style="color: var(--accent-bright)">Open Standalone Proof Verifier →</a></div>
+      <div class="wrap footer-inner">
+        <span>Lion Gate — powered by Lion 0.19</span>
+        <a class="text-link" href="benchmarks.html">60-case Sonnet benchmark →</a>
       </div>
     </footer>
 
     <script type="module" src="lion-browser.js"></script>
     <script type="module">
       const $ = (id) => document.getElementById(id);
-      const presets = {
+      const scenarios = {
+        recover: { customer: "cust_alice", amount: 750, approved: false },
         legit: { customer: "cust_alice", amount: 250, approved: false },
-        inject: { customer: "cust_alice", amount: 900, approved: false },
         kyc: { customer: "cust_bob", amount: 25, approved: false },
         overdraft: { customer: "cust_alice", amount: 1500, approved: true },
-        recover: { customer: "cust_alice", amount: 750, approved: false },
       };
+      let currentCustomer = "cust_alice";
+
+      const selectTab = (which) => {
+        const isRuntime = which === "runtime";
+        $("tab-runtime").setAttribute("aria-selected", String(isRuntime));
+        $("tab-proof").setAttribute("aria-selected", String(!isRuntime));
+        $("panel-runtime").hidden = !isRuntime;
+        $("panel-proof").hidden = isRuntime;
+      };
+      $("tab-runtime").addEventListener("click", () => selectTab("runtime"));
+      $("tab-proof").addEventListener("click", () => selectTab("proof"));
 
       const runEval = async () => {
         const res = await window.LionDemos.demoGateEvaluate({
-          customerId: $("gate-customer").value,
+          customerId: currentCustomer,
           amount: Number($("gate-amount").value),
           approvedByHuman: $("gate-approved").checked,
           reqId: `req_${Date.now()}`,
         });
-        const st = $("gate-status");
-        st.className = `status-banner ${res.allowed ? "ok" : "err"}`;
-        st.textContent = res.allowed
-          ? `ALLOWED in ${res.latencyMs}ms · Ed25519 Receipt Verified: ${res.verified}`
-          : `DENIED in ${res.latencyMs}ms · Reasons: ${res.deniedReasons.join(", ")} · Receipt Verified: ${res.verified}`;
+        const v = $("gate-verdict");
+        v.className = `verdict-word ${res.allowed ? "ok" : "err"}`;
+        v.textContent = res.allowed ? "Allowed" : "Denied";
+        $("gate-summary").textContent = res.allowed
+          ? "Passed every policy rule and signed with Ed25519."
+          : "Blocked before execution with structured recovery reasons.";
+        $("gate-latency").textContent = `${res.latencyMs} ms`;
+        $("gate-reason").textContent = res.deniedReasons.length
+          ? res.deniedReasons.join(", ")
+          : "None";
+        $("gate-verified").textContent = res.verified ? "Verified" : "Failed";
         $("gate-retry-btn").style.display =
           !res.allowed &&
           res.deniedReasons.length === 1 &&
@@ -270,16 +252,13 @@ Buggy: buggy_refund(bal, amt) = bal - amt   // missing balance guard!</pre>
         $("gate-output").textContent = JSON.stringify(res, null, 2);
       };
 
-      document.querySelectorAll("[data-preset]").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const p = presets[btn.dataset.preset];
-          $("gate-customer").value = p.customer;
-          $("gate-amount").value = String(p.amount);
-          $("gate-approved").checked = p.approved;
-          runEval();
-        });
+      $("gate-scenario").addEventListener("change", () => {
+        const s = scenarios[$("gate-scenario").value];
+        currentCustomer = s.customer;
+        $("gate-amount").value = String(s.amount);
+        $("gate-approved").checked = s.approved;
+        runEval();
       });
-
       $("gate-eval-btn").addEventListener("click", runEval);
       $("gate-retry-btn").addEventListener("click", () => {
         $("gate-approved").checked = true;
@@ -288,11 +267,17 @@ Buggy: buggy_refund(bal, amt) = bal - amt   // missing balance guard!</pre>
 
       const runProve = async (kind) => {
         const res = await window.LionDemos.demoGateProve(kind);
-        const st = $("prove-status");
-        st.className = `status-banner ${res.result.proved ? "ok" : "err"}`;
-        st.textContent = res.result.proved
-          ? `PROVED SAFE for ALL integers in ${res.latencyMs}ms · Trusted Kernel + Ed25519 Verified: ${res.verified}`
-          : `BUGGY POLICY REFUTED in ${res.latencyMs}ms · Counterexample: ${JSON.stringify(res.result.counterexample)}`;
+        const v = $("prove-verdict");
+        v.className = `verdict-word ${res.result.proved ? "ok" : "err"}`;
+        v.textContent = res.result.proved ? "Proved safe" : "Bug refuted";
+        $("prove-summary").textContent = res.result.proved
+          ? "No non-negative balance can overdraft across all integers."
+          : "Solver found an integer input that overdrafts the account.";
+        $("prove-latency").textContent = `${res.latencyMs} ms`;
+        $("prove-ce").textContent = res.result.counterexample
+          ? JSON.stringify(res.result.counterexample)
+          : "None (universal)";
+        $("prove-verified").textContent = res.verified ? "Verified" : "Failed";
         $("prove-output").textContent = JSON.stringify(res, null, 2);
       };
 

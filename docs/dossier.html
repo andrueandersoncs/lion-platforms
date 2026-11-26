@@ -3,220 +3,244 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Lion Dossier — Proof-Carrying Research &amp; Due-Diligence Workbench</title>
+    <title>Lion Dossier — Proof-Carrying Research Workbench</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <nav class="nav">
+    <nav class="nav" aria-label="Primary">
       <div class="nav-inner">
         <a class="brand" href="index.html">
-          <span class="brand-mark">LION</span>
-          <span>Dossier</span>
+          <span class="brand-mark" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+              <path d="M3 13V3h3.2v7.2H13V13H3Z" fill="currentColor" />
+            </svg>
+          </span>
+          <span>Lion Dossier</span>
         </a>
         <div class="nav-links">
-          <a href="index.html">Overview</a>
-          <a href="gate.html">Lion Gate</a>
-          <a href="dossier.html" class="active">Lion Dossier</a>
-          <a href="fabric.html">Lion Fabric</a>
-          <a href="benchmarks.html">Sonnet 5.5 Benchmarks</a>
-          <a href="verify.html">Proof Verifier</a>
+          <a href="gate.html">Gate</a>
+          <a href="dossier.html" class="active">Dossier</a>
+          <a href="fabric.html">Fabric</a>
+          <a href="benchmarks.html">Benchmarks</a>
+          <a href="verify.html">Verifier</a>
         </div>
       </div>
     </nav>
 
-    <header class="hero">
-      <div class="container">
-        <span class="pill"><span class="dot"></span> Proof-Carrying Research &amp; Due-Diligence Workbench</span>
-        <h1>
-          Every figure <span class="shine">verbatim-grounded</span>.<br />
-          Every deliverable cryptographically proved.
-        </h1>
-        <p class="lead">
-          In our live 10-packet benchmark, even Claude Sonnet 5.5 slipped on 27 claim extractions and drifted on
-          independent publisher counting (10% consistency). Lion Dossier puts a hard <code>HTTP 422</code> verbatim +
-          numeric gate in front of your research agents, collapses echo-chamber relays, computes kernel-verified
-          <code>proof/bounds</code>, and exports interactive Ed25519-signed deliverables.
-        </p>
-        <div class="actions">
-          <a class="btn btn-primary" href="#demo">Try Live Grounding &amp; Tamper Demo ↓</a>
-          <a class="btn" href="#pricing">Pricing</a>
-          <a class="btn" href="benchmarks.html#dossier">View 10-Packet Sonnet Data</a>
-        </div>
+    <main>
+      <header class="hero">
+        <div class="wrap">
+          <h1>Research deliverables you can prove.</h1>
+          <p class="lead">
+            Reject misquoted figures at write time, collapse media echo chambers,
+            and deliver memos backed by exact mathematical bounds and Ed25519
+            signatures.
+          </p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#sandbox">Try live sandbox</a>
+          </div>
 
-        <div class="stat-strip">
-          <div class="stat">
-            <div class="stat-val green">27 / 27</div>
-            <div class="stat-label">Live Claude Sonnet extraction slips caught &amp; auto-repaired via HTTP 422</div>
-          </div>
-          <div class="stat">
-            <div class="stat-val">100% vs. 10%</div>
-            <div class="stat-label">Exact independent publisher attribution (zero LLM semantic drift)</div>
-          </div>
-          <div class="stat">
-            <div class="stat-val green">5 / 5 Proved</div>
-            <div class="stat-label">Exact rational gross-margin bounds verified by Lion's proof kernel</div>
-          </div>
-          <div class="stat">
-            <div class="stat-val">10 / 10</div>
-            <div class="stat-label">Ed25519 cryptographically signed research deliverables</div>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <section id="demo" class="section">
-      <div class="container">
-        <div class="section-kicker">Live In-Browser Engine (@lionlang/core@0.19.0)</div>
-        <h2>Test the HTTP 422 Grounding Gate &amp; Deliverable Tamper Detection</h2>
-
-        <div class="demo-box" style="margin-bottom: 24px">
-          <div class="demo-header">
-            <strong>1. Hard Verbatim Quote &amp; Numeric Match Gate (<code>string/includes?</code> + <code>string/numbers</code>)</strong>
-            <div style="display: flex; gap: 8px; flex-wrap: wrap">
-              <button class="btn btn-sm" type="button" id="dos-good-btn">Valid Grounded Claim ($240M)</button>
-              <button class="btn btn-danger btn-sm" type="button" id="dos-bad-quote-btn">Paraphrased Quote (422)</button>
-              <button class="btn btn-danger btn-sm" type="button" id="dos-bad-num-btn">Mistyped Value $243M (422)</button>
-            </div>
-          </div>
-          <div class="demo-body">
+          <div class="proof-strip">
             <div>
-              <div class="field">
-                <label>Source Filing (FY25 Form 10-K)</label>
-                <textarea id="dos-source" rows="3" readonly>Restated FY25 GAAP revenue was $240 million; adjusted revenue was $220 million.</textarea>
-              </div>
-              <div class="field">
-                <label for="dos-quote">Agent-Submitted Quote</label>
-                <input id="dos-quote" type="text" value="Restated FY25 GAAP revenue was $240 million" />
-              </div>
-              <div class="field">
-                <label for="dos-val">Claimed Numeric Value</label>
-                <input id="dos-val" type="number" value="240" />
-              </div>
-              <button class="btn btn-primary" type="button" id="dos-check-btn">Validate Claim in Lion Dossier</button>
+              <div class="proof-figure">27 / 27</div>
+              <p class="proof-caption">Live Sonnet slips caught and repaired.</p>
             </div>
             <div>
-              <div id="dos-status" class="status-banner">Run a grounding check to see HTTP 201 vs HTTP 422 enforcement.</div>
-              <pre id="dos-output" class="output">Waiting for claim check...</pre>
+              <div class="proof-figure">100%</div>
+              <p class="proof-caption">Consistent publisher attribution across 50 sources.</p>
+            </div>
+            <div>
+              <div class="proof-figure">10 / 10</div>
+              <p class="proof-caption">Ed25519 deliverables kernel-verified.</p>
             </div>
           </div>
         </div>
+      </header>
 
-        <div class="demo-box">
-          <div class="demo-header">
-            <strong>2. Exact <code>proof/bounds</code> Margin Envelope + Tamper Test</strong>
-            <div style="display: flex; gap: 8px; flex-wrap: wrap">
-              <button class="btn btn-primary btn-sm" type="button" id="dos-sign-btn">
-                Compute Bounds &amp; Sign Deliverable
-              </button>
-              <button class="btn btn-danger btn-sm" type="button" id="dos-tamper-btn" disabled>
-                Tamper 1 Digit &amp; Re-Verify!
-              </button>
+      <section id="sandbox" class="chamber">
+        <div class="wrap">
+          <h2>Test Lion Dossier live.</h2>
+          <p class="lead">
+            Validate claims verbatim against a source filing or sign exact margin bounds.
+          </p>
+
+          <div class="tabs" role="tablist" aria-label="Dossier demos">
+            <button class="tab-btn" role="tab" aria-selected="true" id="tab-grounding" aria-controls="panel-grounding">
+              Write-time grounding
+            </button>
+            <button class="tab-btn" role="tab" aria-selected="false" id="tab-bounds" aria-controls="panel-bounds">
+              Bounds &amp; tamper proof
+            </button>
+          </div>
+
+          <div id="panel-grounding" class="tab-panel" role="tabpanel" aria-labelledby="tab-grounding">
+            <div class="instrument">
+              <div>
+                <div class="field">
+                  <label for="dos-preset">Claim example</label>
+                  <select id="dos-preset">
+                    <option value="good">Valid claim ($240M verbatim from 10-K)</option>
+                    <option value="bad-num">Mistyped figure ($243M vs $240M in quote)</option>
+                    <option value="bad-quote">Paraphrased quote (not in filing)</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="dos-quote">Submitted quote</label>
+                  <input id="dos-quote" type="text" value="Restated FY25 GAAP revenue was $240 million" />
+                </div>
+                <div class="field">
+                  <label for="dos-val">Claimed figure ($M)</label>
+                  <input id="dos-val" type="number" value="240" />
+                </div>
+                <button class="btn btn-primary" type="button" id="dos-check-btn">Validate claim</button>
+              </div>
+
+              <div class="verdict-panel" aria-live="polite">
+                <div id="dos-verdict" class="verdict-word">Ready</div>
+                <p id="dos-summary" class="verdict-summary">Checking claim against Form 10-K...</p>
+                <div class="facts-list">
+                  <div class="fact-row">
+                    <span class="fact-key">HTTP status</span>
+                    <span id="dos-http" class="fact-val">—</span>
+                  </div>
+                  <div class="fact-row">
+                    <span class="fact-key">Verbatim match</span>
+                    <span id="dos-match" class="fact-val">—</span>
+                  </div>
+                  <div class="fact-row">
+                    <span class="fact-key">Numeric match</span>
+                    <span id="dos-num" class="fact-val">—</span>
+                  </div>
+                </div>
+                <details class="drawer">
+                  <summary>Inspect raw validation payload</summary>
+                  <pre id="dos-output"></pre>
+                </details>
+              </div>
             </div>
           </div>
-          <div class="demo-body">
-            <div>
-              <p style="font-size: 14px; color: var(--muted); margin-bottom: 12px">
-                Computes exact minimum and maximum gross margin <code>(r - c) / r</code> for revenue in
-                <code>[R-2, R+2]</code> and COGS in <code>[C-2, C+2]</code>, signs an Ed25519
-                <code>ProofEnvelope</code>, and verifies it locally via Web Crypto + Lion's trusted proof kernel.
-              </p>
-              <div class="field">
-                <label for="dos-rev">Restated Revenue ($M)</label>
-                <input id="dos-rev" type="number" value="240" />
+
+          <div id="panel-bounds" class="tab-panel" role="tabpanel" aria-labelledby="tab-bounds" hidden>
+            <div class="instrument">
+              <div>
+                <div class="field">
+                  <label for="dos-rev">Restated revenue ($M, ±$2M range)</label>
+                  <input id="dos-rev" type="number" value="240" />
+                </div>
+                <div class="field">
+                  <label for="dos-cogs">Cost of goods ($M, ±$2M range)</label>
+                  <input id="dos-cogs" type="number" value="162" />
+                </div>
+                <div class="actions" style="margin-top: 24px">
+                  <button class="btn btn-primary" type="button" id="dos-sign-btn">Prove &amp; sign</button>
+                  <button class="btn" type="button" id="dos-tamper-btn" disabled>Tamper 1 digit</button>
+                </div>
               </div>
-              <div class="field">
-                <label for="dos-cogs">COGS ($M)</label>
-                <input id="dos-cogs" type="number" value="162" />
+
+              <div class="verdict-panel" aria-live="polite">
+                <div id="bounds-verdict" class="verdict-word">Unsigned</div>
+                <p id="bounds-summary" class="verdict-summary">Compute exact bounds to sign an envelope.</p>
+                <div class="facts-list">
+                  <div class="fact-row">
+                    <span class="fact-key">Solver time</span>
+                    <span id="bounds-latency" class="fact-val">—</span>
+                  </div>
+                  <div class="fact-row">
+                    <span class="fact-key">Ed25519 signature</span>
+                    <span id="bounds-sig" class="fact-val">—</span>
+                  </div>
+                  <div class="fact-row">
+                    <span class="fact-key">Proof kernel</span>
+                    <span id="bounds-kernel" class="fact-val">—</span>
+                  </div>
+                </div>
+                <details class="drawer">
+                  <summary>Inspect signed bounds envelope</summary>
+                  <pre id="bounds-output"></pre>
+                </details>
               </div>
-            </div>
-            <div>
-              <div id="bounds-status" class="status-banner">Click "Compute Bounds &amp; Sign Deliverable".</div>
-              <pre id="bounds-output" class="output">Waiting for bounds proof...</pre>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section id="pricing" class="section">
-      <div class="container">
-        <div class="section-kicker">Pricing</div>
-        <h2>Built for PE/VC diligence, equity research, and compliance teams</h2>
-        <div class="grid-3">
-          <div class="card">
-            <h3>Analyst</h3>
-            <div class="price">$199 <span>/ mo</span></div>
-            <ul class="bullet-list">
-              <li>25 proof-carrying dossiers / mo</li>
-              <li>Hard 422 quote/figure gate + relay deduplication</li>
-              <li>Shareable Ed25519-signed deliverable URLs</li>
-            </ul>
-            <a class="btn btn-sm" href="mailto:andrue.anderson.cs@gmail.com?subject=Lion%20Dossier%20Analyst">Start Pilot →</a>
-          </div>
-          <div class="card" style="border-color: var(--accent)">
-            <div class="card-head">
+      <section id="pricing" class="band">
+        <div class="wrap">
+          <h2>Built for research and deal teams.</h2>
+          <p class="lead">Audit-ready deliverables with client-side verification links.</p>
+
+          <div class="pricing-grid">
+            <div>
+              <h3>Analyst</h3>
+              <div class="tier-price">$199 / mo</div>
+              <p class="tier-copy">25 signed dossiers monthly, grounding gate, verifier links.</p>
+              <a class="btn" href="mailto:andrue.anderson.cs@gmail.com?subject=Lion%20Dossier%20Analyst">Start pilot</a>
+            </div>
+            <div>
               <h3>Deal Team</h3>
-              <span class="badge amber">Most Popular</span>
+              <div class="tier-price">$799 / mo</div>
+              <p class="tier-copy">Unlimited dossiers, 5 seats, bounds proofs, client exports.</p>
+              <a class="btn btn-primary" href="mailto:andrue.anderson.cs@gmail.com?subject=Lion%20Dossier%20Deal%20Team">Request access</a>
             </div>
-            <div class="price">$799 <span>/ mo</span></div>
-            <ul class="bullet-list">
-              <li>Unlimited dossiers &amp; 5 team seats</li>
-              <li>Exact <code>proof/bounds</code> &amp; <code>proof/sensitivity</code> stress-testing</li>
-              <li>White-label client deliverables + MCP integration</li>
-            </ul>
-            <a class="btn btn-primary btn-sm" href="mailto:andrue.anderson.cs@gmail.com?subject=Lion%20Dossier%20Deal%20Team">Request Access →</a>
-          </div>
-          <div class="card">
-            <h3>Institutional</h3>
-            <div class="price">Custom</div>
-            <ul class="bullet-list">
-              <li>Private VPC deployment &amp; SEC/VDR connectors</li>
-              <li>Firm-owned Ed25519 signing keys &amp; retention</li>
-              <li>Audit-ready verification portal for LPs &amp; boards</li>
-            </ul>
-            <a class="btn btn-sm" href="mailto:andrue.anderson.cs@gmail.com?subject=Lion%20Dossier%20Institutional">Talk to Founders →</a>
+            <div>
+              <h3>Institutional</h3>
+              <div class="tier-price">Custom</div>
+              <p class="tier-copy">Private VPC deploy, firm-owned keys, LP verifier portal.</p>
+              <a class="btn" href="mailto:andrue.anderson.cs@gmail.com?subject=Lion%20Dossier%20Institutional">Talk to us</a>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </main>
 
     <footer class="footer">
-      <div class="container footer-inner">
-        <div>Lion Dossier — built on <code>@lionlang/core@0.19.0</code> &amp; <code>@lionlang/ui@0.1.0</code></div>
-        <div><a href="verify.html" style="color: var(--accent-bright)">Open Standalone Proof Verifier →</a></div>
+      <div class="wrap footer-inner">
+        <span>Lion Dossier — powered by Lion 0.19</span>
+        <a class="text-link" href="verify.html">Standalone verifier →</a>
       </div>
     </footer>
 
     <script type="module" src="lion-browser.js"></script>
     <script type="module">
       const $ = (id) => document.getElementById(id);
+      const SOURCE_TEXT = "Restated FY25 GAAP revenue was $240 million; adjusted revenue was $220 million.";
       let lastEnvelopeJson = "";
+
+      const selectTab = (which) => {
+        const isGround = which === "grounding";
+        $("tab-grounding").setAttribute("aria-selected", String(isGround));
+        $("tab-bounds").setAttribute("aria-selected", String(!isGround));
+        $("panel-grounding").hidden = !isGround;
+        $("panel-bounds").hidden = isGround;
+      };
+      $("tab-grounding").addEventListener("click", () => selectTab("grounding"));
+      $("tab-bounds").addEventListener("click", () => selectTab("bounds"));
 
       const runQuoteCheck = async () => {
         const res = await window.LionDemos.demoDossierCheckQuote({
-          sourceText: $("dos-source").value,
+          sourceText: SOURCE_TEXT,
           quote: $("dos-quote").value,
           value: Number($("dos-val").value),
         });
-        const st = $("dos-status");
-        st.className = `status-banner ${res.accepted ? "ok" : "err"}`;
-        st.textContent = `${res.reason} (${res.latencyMs}ms)`;
+        const v = $("dos-verdict");
+        v.className = `verdict-word ${res.accepted ? "ok" : "err"}`;
+        v.textContent = res.accepted ? "Accepted (201)" : "Rejected (422)";
+        $("dos-summary").textContent = res.reason;
+        $("dos-http").textContent = `HTTP ${res.httpStatus} · ${res.latencyMs} ms`;
+        $("dos-match").textContent = res.quoteInSource ? "Exact substring" : "Not found in filing";
+        $("dos-num").textContent = res.valueFoundInQuote ? "Matched" : "Mismatch";
         $("dos-output").textContent = JSON.stringify(res, null, 2);
       };
 
-      $("dos-good-btn").addEventListener("click", () => {
-        $("dos-quote").value = "Restated FY25 GAAP revenue was $240 million";
-        $("dos-val").value = "240";
-        runQuoteCheck();
-      });
-      $("dos-bad-quote-btn").addEventListener("click", () => {
-        $("dos-quote").value = "Management confirmed $240 million in organic ARR.";
-        $("dos-val").value = "240";
-        runQuoteCheck();
-      });
-      $("dos-bad-num-btn").addEventListener("click", () => {
-        $("dos-quote").value = "Restated FY25 GAAP revenue was $240 million";
-        $("dos-val").value = "243";
+      const presets = {
+        good: { quote: "Restated FY25 GAAP revenue was $240 million", val: "240" },
+        "bad-num": { quote: "Restated FY25 GAAP revenue was $240 million", val: "243" },
+        "bad-quote": { quote: "Management confirmed $240 million in organic ARR.", val: "240" },
+      };
+      $("dos-preset").addEventListener("change", () => {
+        const p = presets[$("dos-preset").value];
+        $("dos-quote").value = p.quote;
+        $("dos-val").value = p.val;
         runQuoteCheck();
       });
       $("dos-check-btn").addEventListener("click", runQuoteCheck);
@@ -228,9 +252,13 @@
         });
         lastEnvelopeJson = JSON.stringify(res.envelope, null, 2);
         $("dos-tamper-btn").disabled = false;
-        const st = $("bounds-status");
-        st.className = "status-banner ok";
-        st.textContent = `PROVED & SIGNED in ${res.latencyMs}ms · Ed25519 Signature: ${res.verification.signatureValid} · Proof Kernel: ${res.verification.proofValid}`;
+        const v = $("bounds-verdict");
+        v.className = "verdict-word ok";
+        v.textContent = "Proved & signed";
+        $("bounds-summary").textContent = "Exact rational bounds proved and signed locally.";
+        $("bounds-latency").textContent = `${res.latencyMs} ms`;
+        $("bounds-sig").textContent = res.verification.signatureValid ? "Valid" : "Invalid";
+        $("bounds-kernel").textContent = res.verification.proofValid ? "Verified" : "Failed";
         $("bounds-output").textContent = JSON.stringify(
           { bounds: res.bounds, verification: res.verification, envelope: res.envelope },
           null,
@@ -241,9 +269,12 @@
       $("dos-tamper-btn").addEventListener("click", async () => {
         const tampered = lastEnvelopeJson.replace('"gross_margin"', '"gross_margin_inflated"');
         const ver = await window.LionDemos.demoVerifyEnvelopeJson(tampered);
-        const st = $("bounds-status");
-        st.className = "status-banner err";
-        st.textContent = `TAMPER DETECTED! valid=${ver.valid} · hashValid=${ver.hashValid} · signatureValid=${ver.signatureValid} · reason=${ver.reason}`;
+        const v = $("bounds-verdict");
+        v.className = "verdict-word err";
+        v.textContent = "Tamper caught";
+        $("bounds-summary").textContent = ver.reason ?? "Payload digest mismatch detected.";
+        $("bounds-sig").textContent = ver.hashValid ? "Hash intact" : "Payload hash broken";
+        $("bounds-kernel").textContent = ver.valid ? "Valid" : "Rejected";
         $("bounds-output").textContent = JSON.stringify(ver, null, 2);
       });
 

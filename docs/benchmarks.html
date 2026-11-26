@@ -3,192 +3,178 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Claude Sonnet 5.5 vs. Claude Sonnet 5.5 + Lion — Full-Corpus A/B Benchmark</title>
+    <title>Claude Sonnet 5.5 A/B Benchmark — Lion Cloud</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <nav class="nav">
+    <nav class="nav" aria-label="Primary">
       <div class="nav-inner">
         <a class="brand" href="index.html">
-          <span class="brand-mark">LION</span>
-          <span>Benchmarks</span>
+          <span class="brand-mark" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+              <path d="M3 13V3h3.2v7.2H13V13H3Z" fill="currentColor" />
+            </svg>
+          </span>
+          <span>Lion Cloud</span>
         </a>
         <div class="nav-links">
-          <a href="index.html">Overview</a>
-          <a href="gate.html">Lion Gate</a>
-          <a href="dossier.html">Lion Dossier</a>
-          <a href="fabric.html">Lion Fabric</a>
-          <a href="benchmarks.html" class="active">Sonnet 5.5 Benchmarks</a>
-          <a href="verify.html">Proof Verifier</a>
+          <a href="gate.html">Gate</a>
+          <a href="dossier.html">Dossier</a>
+          <a href="fabric.html">Fabric</a>
+          <a href="benchmarks.html" class="active">Benchmarks</a>
+          <a href="verify.html">Verifier</a>
         </div>
       </div>
     </nav>
 
-    <header class="hero">
-      <div class="container">
-        <span class="pill"><span class="dot"></span> Empirical Engineering Report · November 2026</span>
-        <h1>
-          We Benchmarked <span class="shine">Claude Sonnet 5.5</span> Against<br />
-          Claude Sonnet 5.5 + a Symbolic Engine
-        </h1>
-        <p class="lead">
-          Full-corpus live A/B trials across <strong>60 policy guardrail cases</strong>, <strong>10 multi-source
-          due-diligence packets (50 sources)</strong>, and <strong>15 multi-agent incident episodes</strong> — reporting
-          both where a frontier model excels on its own and the structural gaps where symbolic verification delivers
-          orders-of-magnitude gains.
-        </p>
-      </div>
-    </header>
+    <main>
+      <header class="hero">
+        <div class="wrap">
+          <h1>Claude Sonnet 5.5 vs. Sonnet 5.5 + Lion.</h1>
+          <p class="lead">
+            Full-corpus live A/B trials using the same model on both arms — reporting
+            where Sonnet succeeded alone and where symbolic proofs changed the outcome.
+          </p>
 
-    <section class="section">
-      <div class="container">
-        <div class="section-kicker">Methodology</div>
-        <h2>Fair, isolated, reproducible — zero strawman prompts</h2>
-        <div class="callout" style="margin-bottom: 24px">
-          <strong>Experimental setup:</strong> Every live run executed <code>claude -p --model sonnet</code>
-          (resolved to <code>claude-sonnet-5-5</code>) with <code>--tools "" --strict-mcp-config --setting-sources ""
-          --no-session-persistence --json-schema</code> to eliminate workspace leakage. Both Control and Treatment arms
-          used the <strong>exact same model</strong> and crystal-clear system prompts. Total combined API spend across
-          all 3 full-corpus trials was <strong>~$1.24</strong>.
+          <div class="proof-strip">
+            <div>
+              <div class="proof-figure">60 cases</div>
+              <p class="proof-caption">Refund policy checks on Lion Gate.</p>
+            </div>
+            <div>
+              <div class="proof-figure">50 sources</div>
+              <p class="proof-caption">Due-diligence packets on Lion Dossier.</p>
+            </div>
+            <div>
+              <div class="proof-figure">15 episodes</div>
+              <p class="proof-caption">Incident swarms on Lion Fabric.</p>
+            </div>
+          </div>
         </div>
+      </header>
 
-        <h3 id="gate" style="margin: 28px 0 12px; font-size: 1.35rem">1. Lion Gate — 60 Adversarial &amp; Recoverable Refund Cases</h3>
-        <div class="table-wrap" style="margin-bottom: 16px">
-          <table>
-            <thead>
-              <tr>
-                <th>Arm</th>
-                <th>Violation Rate</th>
-                <th>Self-Correction</th>
-                <th>P50 / P95 Gate Latency</th>
-                <th>Marginal Gate LLM Cost</th>
-                <th>Formal Proofs</th>
-                <th>Signed Receipts</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Claude (<code>claude-sonnet-5-5</code>) Prompt Guardrail</td>
-                <td>0% (0/46)</td>
-                <td>100%</td>
-                <td class="warn">1,789ms / 2,884ms</td>
-                <td class="warn">$0.2973 (~$4.96/1k)</td>
-                <td class="warn">No</td>
-                <td class="warn">0 / 60</td>
-              </tr>
-              <tr class="highlight">
-                <td>Claude (<code>claude-sonnet-5-5</code>) + Lion Gate</td>
-                <td class="win">0% (0/46)</td>
-                <td class="win">100%</td>
-                <td class="win">7.11ms / 34.02ms</td>
-                <td class="win">$0.00</td>
-                <td class="win">Safe Proved + Bug Refuted</td>
-                <td class="win">60 / 60 Verified</td>
-              </tr>
-            </tbody>
-          </table>
+      <section id="gate" class="band">
+        <div class="wrap">
+          <h2>Lion Gate: 251× faster, $0 LLM cost.</h2>
+          <p class="lead">
+            Sonnet hit zero violations on a clean policy — at 1.8 seconds per check
+            and no formal proofs or receipts.
+          </p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Architecture</th>
+                  <th>P50 latency</th>
+                  <th>LLM cost</th>
+                  <th>Formal proofs</th>
+                  <th>Receipts</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Sonnet 5.5 prompt guardrail</td>
+                  <td>1,789 ms</td>
+                  <td>$0.30 / 60</td>
+                  <td>None</td>
+                  <td>0 / 60</td>
+                </tr>
+                <tr class="winner">
+                  <td>Sonnet 5.5 + Lion Gate</td>
+                  <td>7.1 ms</td>
+                  <td>$0.00</td>
+                  <td>Proved + bug caught</td>
+                  <td>60 / 60</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-        <p style="color: var(--muted); font-size: 14.5px; margin-bottom: 28px">
-          <strong>Takeaway:</strong> Frontier Sonnet followed a clean 2-customer policy accurately — at 251× higher P50
-          latency and ~$5 per 1,000 checks, with zero pre-deploy safety proofs and zero verifiable receipts. Lion Gate
-          proved <code>apply_refund</code> safe for all integers, refuted an injected buggy policy with a
-          counterexample, replayed 100 shadow-traffic requests in 41.81ms (50/100 exact match), and signed 60/60
-          Ed25519 receipts.
-        </p>
+      </section>
 
-        <h3 id="dossier" style="margin: 28px 0 12px; font-size: 1.35rem">2. Lion Dossier — 10 Multi-Source Due-Diligence Packets (50 Sources)</h3>
-        <div class="table-wrap" style="margin-bottom: 16px">
-          <table>
-            <thead>
-              <tr>
-                <th>Arm</th>
-                <th>HTTP 422 Slips Caught</th>
-                <th>Exact Indep. Publishers</th>
-                <th>Restatements / Ambiguity / Disputes</th>
-                <th>Exact Margin Bounds</th>
-                <th>Ed25519 + Proof Kernel</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Claude (<code>claude-sonnet-5-5</code>) RAG Synthesis</td>
-                <td>N/A (no gate)</td>
-                <td class="warn">10% (1/10 — drifted)</td>
-                <td>100% / 100% / 100%</td>
-                <td>100% (unproved)</td>
-                <td class="warn">0 / 10</td>
-              </tr>
-              <tr class="highlight">
-                <td>Claude (<code>claude-sonnet-5-5</code>) + Lion Dossier</td>
-                <td class="win">27 / 27 auto-repaired</td>
-                <td class="win">100% (10/10)</td>
-                <td class="win">100% / 100% / 100%</td>
-                <td class="win">100% (5/5 Proved)</td>
-                <td class="win">10 / 10 Verified</td>
-              </tr>
-            </tbody>
-          </table>
+      <section id="dossier" class="band">
+        <div class="wrap">
+          <h2>Lion Dossier: 27 extraction slips caught.</h2>
+          <p class="lead">
+            Sonnet handled restatements and disputes well, but slipped on 27 claims
+            and drifted on publisher counts across identical packets.
+          </p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Architecture</th>
+                  <th>422 repairs</th>
+                  <th>Publisher count</th>
+                  <th>Margin bounds</th>
+                  <th>Ed25519</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Sonnet 5.5 RAG synthesis</td>
+                  <td>None</td>
+                  <td>10% consistent</td>
+                  <td>Unproved</td>
+                  <td>0 / 10</td>
+                </tr>
+                <tr class="winner">
+                  <td>Sonnet 5.5 + Lion Dossier</td>
+                  <td>27 / 27</td>
+                  <td>100% consistent</td>
+                  <td>5 / 5 proved</td>
+                  <td>10 / 10</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-        <p style="color: var(--muted); font-size: 14.5px; margin-bottom: 28px">
-          <strong>Takeaway:</strong> Even on a clean 50-source corpus, live Claude Sonnet submitted <strong>27
-          extraction claims</strong> that violated verbatim quote or numeric matching — Lion Dossier's HTTP 422 gate
-          caught and automatically repaired every single one. Meanwhile, raw Sonnet drifted on publisher attribution
-          across identical packets (returning <code>0</code> on <code>dd_echo_1..4</code> and flipping to
-          <code>1</code> on <code>dd_echo_5</code>), whereas Lion Dossier's epistemic rules scored 10/10 with
-          kernel-verified <code>proof/bounds</code>.
-        </p>
+      </section>
 
-        <h3 id="fabric" style="margin: 28px 0 12px; font-size: 1.35rem">3. Lion Fabric — 15 Multi-Agent Incident Episodes</h3>
-        <div class="table-wrap" style="margin-bottom: 16px">
-          <table>
-            <thead>
-              <tr>
-                <th>Arm</th>
-                <th>Root-Cause Acc</th>
-                <th>Avg Probes</th>
-                <th>Stale-Evidence Error Rate</th>
-                <th>Blast-Radius Preview</th>
-                <th>Deadlock + SSE</th>
-                <th>Total LLM Spend</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Claude (<code>claude-sonnet-5-5</code>) Text/Vector Memory</td>
-                <td>100%</td>
-                <td>2.0</td>
-                <td class="warn">100% (15/15)</td>
-                <td class="warn">0% (none)</td>
-                <td class="warn">No</td>
-                <td class="warn">$0.3490</td>
-              </tr>
-              <tr class="highlight">
-                <td>Claude (<code>claude-sonnet-5-5</code>) + Lion Fabric</td>
-                <td class="win">100%</td>
-                <td class="win">2.0</td>
-                <td class="win">0% (0/15)</td>
-                <td class="win">100% (15/15)</td>
-                <td class="win">Yes (SSE 26.53ms)</td>
-                <td class="win">$0.1972 (-43.5%)</td>
-              </tr>
-            </tbody>
-          </table>
+      <section id="fabric" class="band">
+        <div class="wrap">
+          <h2>Lion Fabric: 0% stale errors, −43.5% spend.</h2>
+          <p class="lead">
+            Vector memory misled Sonnet on every episode after a file edit. Compact
+            symbolic state also cut live token spend nearly in half.
+          </p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Architecture</th>
+                  <th>Stale errors</th>
+                  <th>Blast radius</th>
+                  <th>SSE handoff</th>
+                  <th>Sonnet spend</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Sonnet 5.5 vector memory</td>
+                  <td>100%</td>
+                  <td>0%</td>
+                  <td>None</td>
+                  <td>$0.35</td>
+                </tr>
+                <tr class="winner">
+                  <td>Sonnet 5.5 + Lion Fabric</td>
+                  <td>0%</td>
+                  <td>100%</td>
+                  <td>26.5 ms</td>
+                  <td>$0.20</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-        <p style="color: var(--muted); font-size: 14.5px">
-          <strong>Takeaway:</strong> Without SHA-256 provenance, vector memory caused a 100% stale-evidence error rate
-          after mid-episode file edits even with Claude Sonnet 5.5. Lion Fabric dropped stale errors to 0%, cut live
-          Sonnet spend by 43.5% via compact symbolic state, predicted exact blast radius on 15/15 episodes, and pushed
-          SSE handoffs in 26.5ms (1.03ms unloaded). <em>(Candid note: on a small 4-hypothesis table, Sonnet itself
-          already spotted the 2 separating probes; <code>decisive</code> reduces probe count further at 15–50+
-          hypotheses.)</em>
-        </p>
-      </div>
-    </section>
+      </section>
+    </main>
 
     <footer class="footer">
-      <div class="container footer-inner">
-        <div>Reproducible with <code>bun run eval:claude</code> across Lion Gate, Lion Dossier, and Lion Fabric</div>
-        <div><a href="index.html" style="color: var(--accent-bright)">← Back to Platform Overview</a></div>
+      <div class="wrap footer-inner">
+        <span>Combined live Sonnet spend across all 3 corpora: ~$1.24</span>
+        <a class="text-link" href="index.html">Overview →</a>
       </div>
     </footer>
   </body>
