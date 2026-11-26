@@ -1,0 +1,20 @@
+{
+  "name": "lion-platforms",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Public marketing sites, interactive in-browser Lion demos, ProofEnvelope verifier, and Claude Sonnet 5.5 A/B benchmarks for Lion Gate, Lion Dossier, and Lion Fabric.",
+  "scripts": {
+    "build": "bun build src/browser-demos.ts --target browser --format esm --minify --outfile docs/lion-browser.js",
+    "dev": "bun run src/dev-server.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@lionlang/core": "^0.19.0",
+    "effect": "4.1.2"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^6.0.2"
+  }
+}

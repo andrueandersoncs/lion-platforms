@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lion Cloud — Verifiable Infrastructure for AI Agents</title>
+    <meta
+      name="description"
+      content="Three commercial neuro-symbolic platforms built on open-source Lion: Lion Gate (verifiable policy guardrails), Lion Dossier (proof-carrying research), and Lion Fabric (content-hashed swarm memory)."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="nav-inner">
+        <a class="brand" href="index.html">
+          <span class="brand-mark">LION</span>
+          <span>Cloud Platforms</span>
+        </a>
+        <div class="nav-links">
+          <a href="index.html" class="active">Overview</a>
+          <a href="gate.html">Lion Gate</a>
+          <a href="dossier.html">Lion Dossier</a>
+          <a href="fabric.html">Lion Fabric</a>
+          <a href="benchmarks.html">Sonnet 5.5 Benchmarks</a>
+          <a href="verify.html">Proof Verifier</a>
+          <a href="https://lionlang.dev" target="_blank" rel="noopener">Open-Source Core ↗</a>
+        </div>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div class="container">
+        <a class="pill" href="benchmarks.html">
+          <span class="dot"></span>
+          Live A/B Benchmark: Claude Sonnet 5.5 vs. Claude Sonnet 5.5 + Lion →
+        </a>
+        <h1>
+          Give AI agents <span class="shine">mathematical proofs</span>,<br />
+          not just prompts.
+        </h1>
+        <p class="lead">
+          Frontier LLMs are remarkable reasoners — and structurally unreliable at deterministic policy enforcement,
+          strict source grounding, and multi-agent state invalidation. Three managed platforms powered by open-source
+          <code>@lionlang/core@0.19.0</code> give your agents sub-10ms symbolic guarantees and Ed25519 proof-carrying
+          receipts.
+        </p>
+        <div class="actions">
+          <a class="btn btn-primary" href="#platforms">Explore the 3 Platforms ↓</a>
+          <a class="btn" href="benchmarks.html">Read the Sonnet 5.5 Benchmark</a>
+          <a class="btn" href="verify.html">Verify a ProofEnvelope</a>
+        </div>
+
+        <div class="stat-strip">
+          <div class="stat">
+            <div class="stat-val green">251× faster</div>
+            <div class="stat-label">Lion Gate P50 vs. Sonnet guardrail (7.11ms vs. 1,789ms) at $0 LLM cost</div>
+          </div>
+          <div class="stat">
+            <div class="stat-val">27 / 27 caught</div>
+            <div class="stat-label">Live Claude Sonnet extraction slips auto-repaired by Dossier's HTTP 422 gate</div>
+          </div>
+          <div class="stat">
+            <div class="stat-val green">100% → 0%</div>
+            <div class="stat-label">Stale-evidence errors after file edits with Fabric SHA-256 provenance</div>
+          </div>
+          <div class="stat">
+            <div class="stat-val">-43.5% spend</div>
+            <div class="stat-label">Lower Claude Sonnet token cost per swarm episode using Fabric symbolic state</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section id="platforms" class="section">
+      <div class="container">
+        <div class="section-kicker">Three Vertical Platforms</div>
+        <h2>One verifiable JSON-logic core. Three production workflows.</h2>
+        <p class="section-sub">
+          Every platform ships a live in-browser demo powered by the real <code>@lionlang/core@0.19.0</code> engine —
+          no signup required to test formal proofs, HTTP 422 grounding, or SHA-256 invalidation.
+        </p>
+
+        <div class="grid-3">
+          <article class="card">
+            <div class="card-head">
+              <h3>Lion Gate</h3>
+              <span class="badge amber">Policy &amp; Guardrails</span>
+            </div>
+            <p style="color: var(--muted); font-size: 14.5px">
+              Drop-in verifiable policy firewall for tool-calling agents. Replaces slow, un-auditable prompt guardrails
+              with sub-10ms <code>assuming</code> checks, structured <code>why</code> self-correction, pre-deploy
+              <code>proof/prove</code> safety certificates, and Ed25519 receipts.
+            </p>
+            <ul class="bullet-list">
+              <li>0% violations · 100% self-correction · 7.11ms P50</li>
+              <li>Proves transitions safe for all integers before deploy</li>
+              <li>100-request shadow-traffic policy diff in 41.8ms</li>
+              <li>Fintech refund &amp; Cloud RBAC starter packs</li>
+            </ul>
+            <div style="margin-top: auto; padding-top: 8px; display: flex; gap: 10px">
+              <a class="btn btn-primary btn-sm" href="gate.html">Try Live Gate Demo →</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-head">
+              <h3>Lion Dossier</h3>
+              <span class="badge green">Research &amp; Diligence</span>
+            </div>
+            <p style="color: var(--muted); font-size: 14.5px">
+              Proof-carrying deep research and financial due-diligence workbench. Rejects ungrounded quotes and mistyped
+              figures at write time (<code>HTTP 422</code>), collapses relay echo chambers, computes exact
+              <code>proof/bounds</code>, and signs client-ready deliverables.
+            </p>
+            <ul class="bullet-list">
+              <li>Caught &amp; auto-repaired 27/27 live Sonnet extraction slips</li>
+              <li>100% vs. 10% exact independent publisher attribution</li>
+              <li>Kernel-verified exact rational <code>proof/bounds</code></li>
+              <li>Interactive <code>@lionlang/ui</code> deliverable reports</li>
+            </ul>
+            <div style="margin-top: auto; padding-top: 8px; display: flex; gap: 10px">
+              <a class="btn btn-primary btn-sm" href="dossier.html">Try Live Dossier Demo →</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-head">
+              <h3>Lion Fabric</h3>
+              <span class="badge amber">Swarm Working Memory</span>
+            </div>
+            <p style="color: var(--muted); font-size: 14.5px">
+              Shared neuro-symbolic working memory and MCP coordination server for coding &amp; SRE agent swarms. Pins
+              observations to SHA-256 content hashes, computes <code>decisive</code> probes, previews edit blast radius,
+              and pushes SSE <code>/v1/watch</code> handoffs.
+            </p>
+            <ul class="bullet-list">
+              <li>100% → 0% stale-evidence errors after file edits</li>
+              <li>43.5% lower Claude Sonnet token spend per episode</li>
+              <li>100% pre-edit <code>assuming</code> blast-radius accuracy</li>
+              <li><code>graph/cycles</code> deadlock catch + sub-30ms SSE</li>
+            </ul>
+            <div style="margin-top: auto; padding-top: 8px; display: flex; gap: 10px">
+              <a class="btn btn-primary btn-sm" href="fabric.html">Try Live Fabric Demo →</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-kicker">Open-Core Architecture</div>
+        <h2>Open-source MIT engine. Managed commercial cloud.</h2>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-head">
+              <h3>Open Source (MIT)</h3>
+              <span class="badge green">npm · lionlang.dev</span>
+            </div>
+            <ul class="bullet-list">
+              <li><code>@lionlang/core@0.19.0</code> — evaluator, Datalog, sandbox metering, WAL journal, JSON Schema, RFC 6902 autofix, Ed25519 envelopes, proof solver</li>
+              <li><code>@lionlang/ui@0.1.0</code> — pure JSON UI bindings &amp; zero-dep DOM patcher</li>
+              <li><code>@lionlang/cli@0.18.0</code> — <code>lion check</code>, <code>lion mcp</code>, <code>lion serve</code>, <code>lion worker</code></li>
+              <li>Zero-dependency Python SDK (<code>clients/python</code>)</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h3>Lion Cloud Platforms (Commercial)</h3>
+              <span class="badge amber">Managed SaaS &amp; VPC</span>
+            </div>
+            <ul class="bullet-list">
+              <li>Multi-tenant WAL-backed SQLite/cloud stores with Bearer API keys &amp; usage metering</li>
+              <li>Domain policy packs (Fintech refunds, Cloud RBAC, SEC diligence, SRE swarms)</li>
+              <li>Managed Ed25519 KMS signing, audit-log retention, and SOC2/regulator verifier portals</li>
+              <li>Dedicated SLAs, shadow-traffic replay pipelines, and design-partner engineering</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="early-access" class="section">
+      <div class="container">
+        <div class="card" style="background: linear-gradient(135deg, #121214 0%, rgba(245, 158, 11, 0.08) 100%)">
+          <div class="section-kicker">Design Partner Program</div>
+          <h2>Ship provable agents in production.</h2>
+          <p class="section-sub" style="margin-bottom: 12px">
+            Onboarding 10 design partners across Fintech/Ops agent teams (Lion Gate), PE/VC &amp; legal research desks
+            (Lion Dossier), and multi-agent engineering orgs (Lion Fabric).
+          </p>
+          <div class="actions">
+            <a
+              class="btn btn-primary"
+              href="mailto:andrue.anderson.cs@gmail.com?subject=Lion%20Cloud%20Design%20Partner%20Access"
+            >
+              Request Design Partner Access →
+            </a>
+            <a class="btn" href="benchmarks.html">Inspect Full Sonnet 5.5 Data</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <div>Built on open-source <a href="https://lionlang.dev" style="color: var(--accent-bright)">Lion</a> (<code>@lionlang/core@0.19.0</code>)</div>
+        <div style="display: flex; gap: 18px">
+          <a href="gate.html">Gate</a>
+          <a href="dossier.html">Dossier</a>
+          <a href="fabric.html">Fabric</a>
+          <a href="benchmarks.html">Benchmarks</a>
+          <a href="verify.html">Verifier</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

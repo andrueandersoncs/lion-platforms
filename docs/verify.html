@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lion ProofEnvelope Verifier — Client-Side Ed25519 + Proof Kernel</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="nav-inner">
+        <a class="brand" href="index.html">
+          <span class="brand-mark">LION</span>
+          <span>Verifier</span>
+        </a>
+        <div class="nav-links">
+          <a href="index.html">Overview</a>
+          <a href="gate.html">Lion Gate</a>
+          <a href="dossier.html">Lion Dossier</a>
+          <a href="fabric.html">Lion Fabric</a>
+          <a href="benchmarks.html">Sonnet 5.5 Benchmarks</a>
+          <a href="verify.html" class="active">Proof Verifier</a>
+        </div>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div class="container">
+        <span class="pill"><span class="dot"></span> 100% Client-Side · Zero Server Calls</span>
+        <h1>Verify any <span class="shine">Lion ProofEnvelope</span> locally.</h1>
+        <p class="lead">
+          Paste any audit receipt from Lion Gate or research deliverable envelope from Lion Dossier. Your browser
+          recomputes the SHA-256 payload digest, checks the Ed25519 Web Crypto signature, and replays Lion's trusted
+          <code>verifyProof</code> kernel directly from <code>@lionlang/core@0.19.0</code>.
+        </p>
+      </div>
+    </header>
+
+    <section class="section">
+      <div class="container">
+        <div class="demo-box">
+          <div class="demo-header">
+            <strong>Ed25519 + Trusted Proof Kernel Inspector</strong>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap">
+              <button class="btn btn-sm" type="button" id="ver-load-gate">Load Sample Gate Receipt</button>
+              <button class="btn btn-sm" type="button" id="ver-load-dossier">Load Sample Dossier Bounds Proof</button>
+              <button class="btn btn-danger btn-sm" type="button" id="ver-tamper">Tamper 1 Byte</button>
+              <button class="btn btn-primary btn-sm" type="button" id="ver-run">Verify Envelope</button>
+            </div>
+          </div>
+          <div class="demo-body">
+            <div>
+              <div class="field">
+                <label for="ver-input">ProofEnvelope JSON</label>
+                <textarea id="ver-input" class="code-input" placeholder='Paste a ProofEnvelope JSON object here...'></textarea>
+              </div>
+            </div>
+            <div>
+              <div id="ver-status" class="status-banner">Load a sample envelope or paste your own JSON to verify.</div>
+              <pre id="ver-output" class="output">Waiting for envelope...</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <div>Client-side verification powered by <code>@lionlang/core@0.19.0</code> Web Crypto Ed25519 &amp; trusted kernel</div>
+        <div><a href="index.html" style="color: var(--accent-bright)">← Platform Overview</a></div>
+      </div>
+    </footer>
+
+    <script type="module" src="lion-browser.js"></script>
+    <script type="module">
+      const $ = (id) => document.getElementById(id);
+
+      const runVerify = async () => {
+        const st = $("ver-status");
+        try {
+          const res = await window.LionDemos.demoVerifyEnvelopeJson($("ver-input").value);
+          st.className = `status-banner ${res.valid ? "ok" : "err"}`;
+          st.textContent = res.valid
+            ? `VERIFIED · hashValid=${res.hashValid} · signatureValid=${res.signatureValid} · proofValid=${res.proofValid}`
+            : `INVALID ENVELOPE · hashValid=${res.hashValid} · signatureValid=${res.signatureValid} · proofValid=${res.proofValid} (${res.reason ?? "failed"})`;
+          $("ver-output").textContent = JSON.stringify(res, null, 2);
+        } catch (err) {
+          st.className = "status-banner err";
+          st.textContent = `Parse/Verify Error: ${err instanceof Error ? err.message : String(err)}`;
+          $("ver-output").textContent = String(err);
+        }
+      };
+
+      $("ver-load-gate").addEventListener("click", async () => {
+        const r = await window.LionDemos.demoGateProve("safe");
+        $("ver-input").value = JSON.stringify(r.envelope, null, 2);
+        runVerify();
+      });
+
+      $("ver-load-dossier").addEventListener("click", async () => {
+        const r = await window.LionDemos.demoDossierBoundsAndSign({ revenue: 240, cogs: 162 });
+        $("ver-input").value = JSON.stringify(r.envelope, null, 2);
+        runVerify();
+      });
+
+      $("ver-tamper").addEventListener("click", () => {
+        const txt = $("ver-input").value;
+        if (txt.includes('"proved": true')) {
+          $("ver-input").value = txt.replace('"proved": true', '"proved": false');
+        } else if (txt.includes('"gross_margin"')) {
+          $("ver-input").value = txt.replace('"gross_margin"', '"gross_margin_forged"');
+        } else {
+          $("ver-input").value = txt.replace('"subject": "', '"subject": "forged:');
+        }
+        runVerify();
+      });
+
+      $("ver-run").addEventListener("click", runVerify);
+      window.addEventListener("load", () => setTimeout(() => $("ver-load-dossier").click(), 80));
+    </script>
+  </body>
+</html>

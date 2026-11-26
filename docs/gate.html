@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lion Gate — Verifiable Agent Policy &amp; Guardrail Cloud</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="nav-inner">
+        <a class="brand" href="index.html">
+          <span class="brand-mark">LION</span>
+          <span>Gate</span>
+        </a>
+        <div class="nav-links">
+          <a href="index.html">Overview</a>
+          <a href="gate.html" class="active">Lion Gate</a>
+          <a href="dossier.html">Lion Dossier</a>
+          <a href="fabric.html">Lion Fabric</a>
+          <a href="benchmarks.html">Sonnet 5.5 Benchmarks</a>
+          <a href="verify.html">Proof Verifier</a>
+        </div>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div class="container">
+        <span class="pill"><span class="dot"></span> Verifiable Agent Policy &amp; Guardrail Cloud</span>
+        <h1>
+          Same 0% violation rate as Claude Sonnet —<br />
+          <span class="shine">251× faster</span>, $0 LLM cost, formally proved.
+        </h1>
+        <p class="lead">
+          Stop burning 1.8 seconds and $5 per 1,000 tool calls asking an LLM whether another LLM is allowed to issue a
+          refund or touch production IAM. Lion Gate evaluates relational Datalog policies inside an isolated
+          <code>assuming</code> sandbox, returns exact <code>why</code> self-correction hints, proves invariants across
+          all integers with <code>proof/prove</code>, and signs every decision with Ed25519.
+        </p>
+        <div class="actions">
+          <a class="btn btn-primary" href="#demo">Try Live Policy Sandbox ↓</a>
+          <a class="btn" href="#pricing">Pricing</a>
+          <a class="btn" href="benchmarks.html#gate">View 60-Case Sonnet Data</a>
+        </div>
+
+        <div class="stat-strip">
+          <div class="stat">
+            <div class="stat-val green">7.11ms P50</div>
+            <div class="stat-label">vs. 1,789ms P50 for Sonnet prompt guardrail (1.11ms unloaded)</div>
+          </div>
+          <div class="stat">
+            <div class="stat-val">$0.00 / 1k</div>
+            <div class="stat-label">Marginal LLM guardrail cost (vs. ~$4.96/1k for Sonnet)</div>
+          </div>
+          <div class="stat">
+            <div class="stat-val green">60 / 60</div>
+            <div class="stat-label">Ed25519 + trusted-kernel verified audit receipts</div>
+          </div>
+          <div class="stat">
+            <div class="stat-val">41.8ms</div>
+            <div class="stat-label">100-request shadow-traffic policy diff replay</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section id="demo" class="section">
+      <div class="container">
+        <div class="section-kicker">Live In-Browser Engine (@lionlang/core@0.19.0)</div>
+        <h2>Test a Policy Check &amp; Formal Proof Right Here</h2>
+        <p class="section-sub">
+          Everything below executes inside your browser using the real published <code>@lionlang/core@0.19.0</code>
+          Datalog evaluator, symbolic <code>proof/prove</code> solver, and Web Crypto Ed25519 signer.
+        </p>
+
+        <div class="demo-box" style="margin-bottom: 24px">
+          <div class="demo-header">
+            <strong>1. Runtime Agent Tool-Call Gate (<code>assuming</code> + <code>why</code> + Ed25519)</strong>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap">
+              <button class="btn btn-sm" type="button" data-preset="legit">Legitimate $250</button>
+              <button class="btn btn-sm" type="button" data-preset="inject">Prompt Injection $900</button>
+              <button class="btn btn-sm" type="button" data-preset="kyc">KYC Unverified $25</button>
+              <button class="btn btn-sm" type="button" data-preset="overdraft">Overdraft $1,500</button>
+              <button class="btn btn-sm" type="button" data-preset="recover">Recoverable $750</button>
+            </div>
+          </div>
+          <div class="demo-body">
+            <div>
+              <div class="field">
+                <label for="gate-customer">Customer Record</label>
+                <select id="gate-customer">
+                  <option value="cust_alice">cust_alice (pro, KYC=true, balance=$1,200, cap=$500)</option>
+                  <option value="cust_bob">cust_bob (standard, KYC=false, balance=$80, cap=$100)</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="gate-amount">Proposed Refund Amount ($)</label>
+                <input id="gate-amount" type="number" value="750" />
+              </div>
+              <div class="field">
+                <label style="display: flex; align-items: center; gap: 8px; text-transform: none; color: var(--fg)">
+                  <input id="gate-approved" type="checkbox" />
+                  Verified Human Approval Token (system channel only)
+                </label>
+              </div>
+              <div style="display: flex; gap: 10px; flex-wrap: wrap">
+                <button class="btn btn-primary" type="button" id="gate-eval-btn">Evaluate in Lion Gate</button>
+                <button class="btn" type="button" id="gate-retry-btn" style="display: none">
+                  Auto-Retry with Human Approval →
+                </button>
+              </div>
+            </div>
+            <div>
+              <div id="gate-status" class="status-banner">Click "Evaluate in Lion Gate" to run a real check.</div>
+              <pre id="gate-output" class="output">Waiting for evaluation...</pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="demo-box">
+          <div class="demo-header">
+            <strong>2. Pre-Deploy Formal Safety Proof (<code>proof/prove</code> across ALL integers)</strong>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap">
+              <button class="btn btn-primary btn-sm" type="button" id="prove-safe-btn">
+                Prove Safe apply_refund
+              </button>
+              <button class="btn btn-danger btn-sm" type="button" id="prove-buggy-btn">
+                Inject Buggy Policy (Find Counterexample)
+              </button>
+            </div>
+          </div>
+          <div class="demo-body">
+            <div>
+              <p style="font-size: 14px; color: var(--muted); margin-bottom: 12px">
+                Goal: prove <code>not (exists bal &ge; 0, amt &gt; 0 : fn(bal, amt) &lt; 0)</code> for every integer in
+                existence — not just unit test samples.
+              </p>
+              <pre class="output">Safe:  apply_refund(bal, amt) = amt &lt;= bal ? bal - amt : bal
+Buggy: buggy_refund(bal, amt) = bal - amt   // missing balance guard!</pre>
+            </div>
+            <div>
+              <div id="prove-status" class="status-banner">Click either button to run Lion's symbolic proof engine.</div>
+              <pre id="prove-output" class="output">Waiting for proof run...</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-kicker">Live A/B Benchmark (60 Refund Cases)</div>
+        <h2>Claude Sonnet 5.5 Guardrail vs. Claude Sonnet 5.5 + Lion Gate</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Arm</th>
+                <th>Violation Rate</th>
+                <th>Self-Correction</th>
+                <th>P50 / P95 Latency</th>
+                <th>Marginal LLM Cost</th>
+                <th>Formal Proofs</th>
+                <th>Signed Receipts</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Claude (<code>claude-sonnet-5-5</code>) Prompt Guardrail</td>
+                <td>0% (0/46)</td>
+                <td>100%</td>
+                <td class="warn">1,789ms / 2,884ms</td>
+                <td class="warn">$0.2973 / 60 (~$4.96/1k)</td>
+                <td class="warn">No</td>
+                <td class="warn">0 / 60</td>
+              </tr>
+              <tr class="highlight">
+                <td>Claude (<code>claude-sonnet-5-5</code>) + Lion Gate</td>
+                <td class="win">0% (0/46)</td>
+                <td class="win">100%</td>
+                <td class="win">7.11ms / 34.02ms</td>
+                <td class="win">$0.00</td>
+                <td class="win">Safe Proved + Bug Refuted</td>
+                <td class="win">60 / 60 Verified</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing" class="section">
+      <div class="container">
+        <div class="section-kicker">Pricing</div>
+        <h2>Predictable usage pricing with cryptographic auditability included</h2>
+        <div class="grid-3">
+          <div class="card">
+            <h3>Starter</h3>
+            <div class="price">$49 <span>/ mo</span></div>
+            <ul class="bullet-list">
+              <li>100,000 gated policy evaluations / mo</li>
+              <li>Ed25519 signed receipts + verifier API</li>
+              <li>Fintech &amp; RBAC starter policy packs</li>
+            </ul>
+            <a class="btn btn-sm" href="mailto:andrue.anderson.cs@gmail.com?subject=Lion%20Gate%20Starter">Start Pilot →</a>
+          </div>
+          <div class="card" style="border-color: var(--accent)">
+            <div class="card-head">
+              <h3>Growth</h3>
+              <span class="badge amber">Most Popular</span>
+            </div>
+            <div class="price">$299 <span>/ mo</span></div>
+            <ul class="bullet-list">
+              <li>1,000,000 gated evaluations / mo</li>
+              <li>CI/CD <code>proof/prove</code> safety gates &amp; shadow-traffic diffs</li>
+              <li>1-year immutable audit log retention + RBAC</li>
+            </ul>
+            <a class="btn btn-primary btn-sm" href="mailto:andrue.anderson.cs@gmail.com?subject=Lion%20Gate%20Growth">Request Access →</a>
+          </div>
+          <div class="card">
+            <h3>Enterprise / VPC</h3>
+            <div class="price">Custom</div>
+            <ul class="bullet-list">
+              <li>Self-hosted Docker / VPC sidecar (&lt;2ms local)</li>
+              <li>Custom HSM/KMS Ed25519 keys &amp; SOC2 exports</li>
+              <li>Dedicated policy engineering SLA</li>
+            </ul>
+            <a class="btn btn-sm" href="mailto:andrue.anderson.cs@gmail.com?subject=Lion%20Gate%20Enterprise">Talk to Founders →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <div>Lion Gate — built on <code>@lionlang/core@0.19.0</code></div>
+        <div><a href="verify.html" style="color: var(--accent-bright)">Open Standalone Proof Verifier →</a></div>
+      </div>
+    </footer>
+
+    <script type="module" src="lion-browser.js"></script>
+    <script type="module">
+      const $ = (id) => document.getElementById(id);
+      const presets = {
+        legit: { customer: "cust_alice", amount: 250, approved: false },
+        inject: { customer: "cust_alice", amount: 900, approved: false },
+        kyc: { customer: "cust_bob", amount: 25, approved: false },
+        overdraft: { customer: "cust_alice", amount: 1500, approved: true },
+        recover: { customer: "cust_alice", amount: 750, approved: false },
+      };
+
+      const runEval = async () => {
+        const res = await window.LionDemos.demoGateEvaluate({
+          customerId: $("gate-customer").value,
+          amount: Number($("gate-amount").value),
+          approvedByHuman: $("gate-approved").checked,
+          reqId: `req_${Date.now()}`,
+        });
+        const st = $("gate-status");
+        st.className = `status-banner ${res.allowed ? "ok" : "err"}`;
+        st.textContent = res.allowed
+          ? `ALLOWED in ${res.latencyMs}ms · Ed25519 Receipt Verified: ${res.verified}`
+          : `DENIED in ${res.latencyMs}ms · Reasons: ${res.deniedReasons.join(", ")} · Receipt Verified: ${res.verified}`;
+        $("gate-retry-btn").style.display =
+          !res.allowed &&
+          res.deniedReasons.length === 1 &&
+          res.deniedReasons[0] === "needs_human_approval"
+            ? "inline-flex"
+            : "none";
+        $("gate-output").textContent = JSON.stringify(res, null, 2);
+      };
+
+      document.querySelectorAll("[data-preset]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const p = presets[btn.dataset.preset];
+          $("gate-customer").value = p.customer;
+          $("gate-amount").value = String(p.amount);
+          $("gate-approved").checked = p.approved;
+          runEval();
+        });
+      });
+
+      $("gate-eval-btn").addEventListener("click", runEval);
+      $("gate-retry-btn").addEventListener("click", () => {
+        $("gate-approved").checked = true;
+        runEval();
+      });
+
+      const runProve = async (kind) => {
+        const res = await window.LionDemos.demoGateProve(kind);
+        const st = $("prove-status");
+        st.className = `status-banner ${res.result.proved ? "ok" : "err"}`;
+        st.textContent = res.result.proved
+          ? `PROVED SAFE for ALL integers in ${res.latencyMs}ms · Trusted Kernel + Ed25519 Verified: ${res.verified}`
+          : `BUGGY POLICY REFUTED in ${res.latencyMs}ms · Counterexample: ${JSON.stringify(res.result.counterexample)}`;
+        $("prove-output").textContent = JSON.stringify(res, null, 2);
+      };
+
+      $("prove-safe-btn").addEventListener("click", () => runProve("safe"));
+      $("prove-buggy-btn").addEventListener("click", () => runProve("buggy"));
+      window.addEventListener("load", () => setTimeout(runEval, 60));
+    </script>
+  </body>
+</html>

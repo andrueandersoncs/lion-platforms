@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lion Fabric — Shared Neuro-Symbolic Swarm Working Memory</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="nav-inner">
+        <a class="brand" href="index.html">
+          <span class="brand-mark">LION</span>
+          <span>Fabric</span>
+        </a>
+        <div class="nav-links">
+          <a href="index.html">Overview</a>
+          <a href="gate.html">Lion Gate</a>
+          <a href="dossier.html">Lion Dossier</a>
+          <a href="fabric.html" class="active">Lion Fabric</a>
+          <a href="benchmarks.html">Sonnet 5.5 Benchmarks</a>
+          <a href="verify.html">Proof Verifier</a>
+        </div>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div class="container">
+        <span class="pill"><span class="dot"></span> Shared Neuro-Symbolic Swarm Working Memory</span>
+        <h1>
+          End multi-agent <span class="shine">context rot</span>.<br />
+          Cut swarm token spend by 43.5%.
+        </h1>
+        <p class="lead">
+          Vector memory stores text chunks that stay high-similarity long after a teammate edits the underlying code.
+          Lion Fabric pins every agent observation to a live SHA-256 content digest, previews pre-edit blast radius with
+          <code>assuming</code>, catches circular task deadlocks via <code>graph/cycles</code>, and pushes sub-30ms SSE
+          <code>/v1/watch</code> handoffs over MCP.
+        </p>
+        <div class="actions">
+          <a class="btn btn-primary" href="#demo">Try Live SHA-256 Staleness Demo ↓</a>
+          <a class="btn" href="#pricing">Pricing</a>
+          <a class="btn" href="benchmarks.html#fabric">View 15-Episode Sonnet Data</a>
+        </div>
+
+        <div class="stat-strip">
+          <div class="stat">
+            <div class="stat-val green">100% → 0%</div>
+            <div class="stat-label">Stale-evidence errors after file edits (vs. Sonnet + vector memory)</div>
+          </div>
+          <div class="stat">
+            <div class="stat-val green">-43.5% cost</div>
+            <div class="stat-label">$0.1972 vs. $0.3490 live Sonnet spend across 15 incident episodes</div>
+          </div>
+          <div class="stat">
+            <div class="stat-val">100% (15/15)</div>
+            <div class="stat-label">Exact pre-edit <code>assuming</code> blast-radius prediction</div>
+          </div>
+          <div class="stat">
+            <div class="stat-val green">26.5ms SSE</div>
+            <div class="stat-label">Zero-polling <code>/v1/watch</code> handoff wakeup (1.03ms unloaded)</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section id="demo" class="section">
+      <div class="container">
+        <div class="section-kicker">Live In-Browser Engine (@lionlang/core@0.19.0)</div>
+        <h2>Edit a File &amp; Watch SHA-256 + <code>assuming</code> Invalidate Stale Observations</h2>
+        <p class="section-sub">
+          Two observations (<code>obs_1: pool_exhausted=true</code>, <code>obs_2: dns_timeout=false</code>) are pinned
+          to the SHA-256 digest of <code>services/checkout.ts</code>. Edit the proposed file content below and watch
+          Lion Fabric predict the exact blast radius before the write even commits.
+        </p>
+
+        <div class="demo-box">
+          <div class="demo-header">
+            <strong>Content-Hashed Working Memory + Blast-Radius Preview</strong>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap">
+              <button class="btn btn-sm" type="button" id="fab-same-btn">No-Op Edit (Keep Fresh)</button>
+              <button class="btn btn-primary btn-sm" type="button" id="fab-edit-btn">
+                Push Timeout Hotfix (Flip Stale)
+              </button>
+            </div>
+          </div>
+          <div class="demo-body">
+            <div>
+              <div class="field">
+                <label for="fab-init">Current <code>services/checkout.ts</code> (observed by agents)</label>
+                <input id="fab-init" type="text" value="export const timeoutMs = 1000;" />
+              </div>
+              <div class="field">
+                <label for="fab-next">Proposed Edit to <code>services/checkout.ts</code></label>
+                <input id="fab-next" type="text" value="export const timeoutMs = 6000;" />
+              </div>
+              <button class="btn btn-primary" type="button" id="fab-run-btn">Run Blast-Radius Preview</button>
+            </div>
+            <div>
+              <div id="fab-status" class="status-banner">Run a preview to compute SHA-256 digests and staleness.</div>
+              <pre id="fab-output" class="output">Waiting for blast-radius preview...</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing" class="section">
+      <div class="container">
+        <div class="section-kicker">Pricing</div>
+        <h2>Drop-in MCP working memory for Claude Code, Cursor, and custom swarms</h2>
+        <div class="grid-3">
+          <div class="card">
+            <h3>Developer</h3>
+            <div class="price">$29 <span>/ mo</span></div>
+            <ul class="bullet-list">
+              <li>10 active swarm workspaces + MCP endpoint</li>
+              <li>SHA-256 staleness &amp; <code>decisive</code> experiment solver</li>
+              <li>Real-time SSE <code>/v1/watch</code> task handoffs</li>
+            </ul>
+            <a class="btn btn-sm" href="mailto:andrue.anderson.cs@gmail.com?subject=Lion%20Fabric%20Developer">Start Pilot →</a>
+          </div>
+          <div class="card" style="border-color: var(--accent)">
+            <div class="card-head">
+              <h3>Team</h3>
+              <span class="badge amber">Most Popular</span>
+            </div>
+            <div class="price">$149 <span>/ mo</span></div>
+            <ul class="bullet-list">
+              <li>Unlimited swarm workspaces &amp; WAL time-travel</li>
+              <li>Branch/merge workspaces with OCC conflict detection</li>
+              <li><code>graph/cycles</code> deadlock alerts &amp; dashboard UI</li>
+            </ul>
+            <a class="btn btn-primary btn-sm" href="mailto:andrue.anderson.cs@gmail.com?subject=Lion%20Fabric%20Team">Request Access →</a>
+          </div>
+          <div class="card">
+            <h3>Enterprise</h3>
+            <div class="price">Custom</div>
+            <ul class="bullet-list">
+              <li>Dedicated VPC cluster &amp; SSO / RBAC</li>
+              <li>GitHub/PagerDuty/CI webhook auto-hashing</li>
+              <li>Custom reasoning schemas &amp; SLA</li>
+            </ul>
+            <a class="btn btn-sm" href="mailto:andrue.anderson.cs@gmail.com?subject=Lion%20Fabric%20Enterprise">Talk to Founders →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <div>Lion Fabric — built on <code>@lionlang/core@0.19.0</code></div>
+        <div><a href="benchmarks.html" style="color: var(--accent-bright)">Read Full Sonnet 5.5 Benchmark →</a></div>
+      </div>
+    </footer>
+
+    <script type="module" src="lion-browser.js"></script>
+    <script type="module">
+      const $ = (id) => document.getElementById(id);
+
+      const runBlast = async () => {
+        const res = await window.LionDemos.demoFabricStaleness({
+          initialContent: $("fab-init").value,
+          editedContent: $("fab-next").value,
+        });
+        const st = $("fab-status");
+        st.className = `status-banner ${res.unchanged ? "ok" : "err"}`;
+        st.textContent = res.unchanged
+          ? `UNCHANGED (${res.latencyMs}ms) · SHA-256 identical · 0 observations invalidated`
+          : `BLAST RADIUS DETECTED (${res.latencyMs}ms) · SHA-256 changed · ${res.wouldBecomeStale.length} observations flip STALE: ${res.wouldBecomeStale.join(", ")}`;
+        $("fab-output").textContent = JSON.stringify(res, null, 2);
+      };
+
+      $("fab-same-btn").addEventListener("click", () => {
+        $("fab-next").value = $("fab-init").value;
+        runBlast();
+      });
+      $("fab-edit-btn").addEventListener("click", () => {
+        $("fab-next").value = "export const timeoutMs = 6000;";
+        runBlast();
+      });
+      $("fab-run-btn").addEventListener("click", runBlast);
+      window.addEventListener("load", () => setTimeout(runBlast, 60));
+    </script>
+  </body>
+</html>
