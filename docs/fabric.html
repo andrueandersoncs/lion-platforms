@@ -40,6 +40,7 @@
               </p>
               <div class="actions">
                 <a class="btn btn-primary" href="#sandbox">Run live staleness &amp; blast preview</a>
+                <a class="text-link" href="#oss-vs-cloud">What you pay for →</a>
               </div>
             </div>
             <div class="plate-frame">
@@ -70,90 +71,176 @@
         </div>
       </header>
 
-      <section class="band">
+      <section id="use-cases" class="band">
         <div class="wrap">
-          <h2>Example: a multi-agent P0 outage.</h2>
+          <h2>Built for every multi-agent workflow.</h2>
           <p class="lead">
-            The same staleness hits coding, SRE, and ops swarms. Here, Agent B logs
-            two clues on checkout.ts (timeout=1000) before Agent A merges a hotfix
-            raising timeout to 6000.
+            Pick a swarm pattern to see why vector memory drifts and how Lion Fabric keeps agents synchronized.
           </p>
 
-          <div class="steps-grid">
-            <div>
-              <div class="step-title">Stale chunks stay top-ranked</div>
-              <p class="step-copy">
-                Vector memory has no file-hash link, so Agent B keeps retrieving
-                pre-hotfix logs — failing 15 of 15 episodes on live Claude Sonnet.
-              </p>
+          <div class="tabs-light" role="tablist" aria-label="Lion Fabric use cases">
+            <button class="tab-btn" role="tab" aria-selected="true" data-uc="coding">Coding Swarms</button>
+            <button class="tab-btn" role="tab" aria-selected="false" data-uc="sre">P0 Incident / SRE</button>
+            <button class="tab-btn" role="tab" aria-selected="false" data-uc="ops">Research &amp; Ops</button>
+          </div>
+
+          <div class="tab-panel" data-uc-panel="coding">
+            <div class="steps-grid">
+              <div>
+                <div class="step-title">What breaks today</div>
+                <p class="step-copy">
+                  Agent A refactors openapi/orders.yaml or checkout.ts while Agent B keeps
+                  writing tests against 0.94-similarity vector chunks from the old file.
+                </p>
+              </div>
+              <div>
+                <div class="step-title">What Lion Fabric enforces</div>
+                <p class="step-copy">
+                  Pins every observation to string/sha256(file). The instant a file changes,
+                  dependent clues flip stale automatically (15/15 → 0 errors).
+                </p>
+              </div>
+              <div>
+                <div class="step-title">Token &amp; blast savings</div>
+                <p class="step-copy">
+                  Pre-edit assuming previews which teammate findings will break, while
+                  compact surviving state cuts Sonnet token spend 43.5%.
+                </p>
+              </div>
             </div>
-            <div>
-              <div class="step-title">Blind edits break teammates</div>
-              <p class="step-copy">
-                Agent A edits checkout.ts with zero blast-radius preview, silently
-                invalidating hypotheses other agents are still building on.
-              </p>
+          </div>
+
+          <div class="tab-panel" data-uc-panel="sre" hidden>
+            <div class="steps-grid">
+              <div>
+                <div class="step-title">What breaks today</div>
+                <p class="step-copy">
+                  Four triage agents inspect DB pools, DNS, and locks. One merges a timeout
+                  hotfix, but teammates keep acting on pre-hotfix logs.
+                </p>
+              </div>
+              <div>
+                <div class="step-title">What Lion Fabric enforces</div>
+                <p class="step-copy">
+                  Links every hypothesis to live config and log digests, expiring refuted
+                  clues immediately so responders pivot in lockstep.
+                </p>
+              </div>
+              <div>
+                <div class="step-title">Zero-polling handoffs</div>
+                <p class="step-copy">
+                  SSE pushes state deltas in 26.5 ms when blocking diagnostics complete —
+                  no wasted retry loops or bloated prose scratchpads.
+                </p>
+              </div>
             </div>
-            <div>
-              <div class="step-title">Prompt bloat &amp; silent deadlocks</div>
-              <p class="step-copy">
-                Re-sending prose scratchpads burns 77% more tokens while circular
-                task waits stall overnight runs without raising an alert.
-              </p>
+          </div>
+
+          <div class="tab-panel" data-uc-panel="ops" hidden>
+            <div class="steps-grid">
+              <div>
+                <div class="step-title">What breaks today</div>
+                <p class="step-copy">
+                  Overnight multi-agent pipelines quietly deadlock on circular task waits or
+                  burn context windows re-reading megabytes of stale handoff notes.
+                </p>
+              </div>
+              <div>
+                <div class="step-title">What Lion Fabric enforces</div>
+                <p class="step-copy">
+                  Runs graph/cycles over task dependencies to catch deadlocks instantly and
+                  serves only active, non-stale facts over MCP.
+                </p>
+              </div>
+              <div>
+                <div class="step-title">Replayable WAL history</div>
+                <p class="step-copy">
+                  Every workspace change is logged in an append-only WAL so teams can branch,
+                  replay, or audit any swarm run post-mortem.
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="band-emerald">
+      <section id="architecture" class="band-emerald">
         <div class="wrap">
-          <h2>How Lion Fabric keeps every agent synchronized.</h2>
+          <h2>How Lion Fabric fits your stack in 5 minutes.</h2>
           <p class="lead">
-            Shared symbolic state over MCP links every observation to live SHA-256
-            digests and pushes instant deltas when tasks unblock.
+            Add one MCP server entry to Claude Code, Cursor, or LangGraph — every
+            agent shares one hash-pinned symbolic workspace over SSE.
           </p>
 
-          <div class="steps-grid">
-            <div>
-              <div class="step-title">1. Automatic SHA-256 invalidation</div>
+          <div class="arch-flow" aria-label="Lion Fabric architecture flow">
+            <div class="arch-node">
+              <div class="step-title">1. Your Agents</div>
               <p class="step-copy">
-                Observations pin to string/sha256(file). When checkout.ts changes,
-                Datalog rules flip pinned clues to stale immediately (0% errors).
+                Claude Code, Cursor, or custom workers log findings and task dependencies via MCP.
               </p>
             </div>
-            <div>
-              <div class="step-title">2. Pre-edit blast-radius preview</div>
+            <div class="arch-arrow" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M4 12h15m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div class="arch-node is-lion">
+              <div class="step-title">2. Lion Fabric MCP + SSE</div>
               <p class="step-copy">
-                Before writing, Agent A simulates the new digest with assuming and
-                sees the exact observations that will expire (15/15 exact).
+                Pins clues to SHA-256 hashes, checks graph/cycles, previews blast radius, and pushes 26 ms deltas.
               </p>
             </div>
-            <div>
-              <div class="step-title">3. Compact MCP state + SSE wakeups</div>
+            <div class="arch-arrow" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M4 12h15m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div class="arch-node">
+              <div class="step-title">3. Repo &amp; Inspector</div>
               <p class="step-copy">
-                Replaces prose prompts with surviving/decisive state (−43.5% spend),
-                catches deadlocks via graph/cycles, and pushes handoffs in 26.5 ms.
+                Git webhooks and file watchers keep artifact digests live; WAL inspector replays runs.
               </p>
             </div>
           </div>
+
+          <details class="drawer">
+            <summary>View 5-line drop-in integration (.mcp.json)</summary>
+            <pre>{
+  "mcpServers": {
+    "lion-fabric": {
+      "url": "https://mcp.lionfabric.dev/v1/workspaces/checkout-p0/sse",
+      "headers": { "Authorization": "Bearer ${LION_FABRIC_KEY}" }
+    }
+  }
+}
+// Exposed MCP tools: observe_fact, preview_blast_radius, commit_artifact, watch_handoffs</pre>
+          </details>
         </div>
       </section>
 
       <section id="sandbox" class="chamber">
         <div class="wrap">
-          <h2>Simulate an outage hotfix live.</h2>
+          <h2>Simulate 3 swarm edits live.</h2>
           <p class="lead">
-            Agent A edits checkout.ts — watch Agent B's pinned clues expire via SHA-256.
+            Pick an artifact and edit it — watch Lion's SHA-256 Datalog rules expire pinned teammate clues.
           </p>
 
           <div class="instrument">
             <div>
               <div class="field">
-                <label for="fab-init">checkout.ts when Agent B ran checks</label>
+                <label for="fab-preset">Shared artifact scenario</label>
+                <select id="fab-preset">
+                  <option value="checkout">P0 Outage: services/checkout.ts (timeout hotfix)</option>
+                  <option value="openapi">Coding Swarm: openapi/orders.yaml (field rename)</option>
+                  <option value="runbook">Ops Swarm: docs/incident-policy.md (SLA change)</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="fab-init">Artifact when Agent B logged clues</label>
                 <input id="fab-init" type="text" value="export const timeoutMs = 1000;" />
               </div>
               <div class="field">
-                <label for="fab-next">Agent A's hotfix to checkout.ts</label>
+                <label for="fab-next">Agent A's proposed edit</label>
                 <input id="fab-next" type="text" value="export const timeoutMs = 6000;" />
               </div>
               <div class="actions" style="margin-top: 24px">
@@ -188,28 +275,74 @@
         </div>
       </section>
 
+      <section id="oss-vs-cloud" class="band">
+        <div class="wrap">
+          <h2>What you pay for vs. open-source Lion.</h2>
+          <p class="lead">
+            The engine is MIT open source. Lion Fabric runs the hosted MCP workspace,
+            SSE bus, and WAL inspector.
+          </p>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Layer</th>
+                  <th>MIT @lionlang/core</th>
+                  <th>Lion Fabric (Managed / VPC)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>MCP &amp; sync</td>
+                  <td>Single-process library</td>
+                  <td>Hosted MCP server + GitHub SHA-256 auto-hashing</td>
+                </tr>
+                <tr>
+                  <td>Handoffs</td>
+                  <td>Build your own pub/sub</td>
+                  <td>26.5 ms SSE push bus when blocked tasks clear</td>
+                </tr>
+                <tr>
+                  <td>Deadlocks</td>
+                  <td>Run queries manually</td>
+                  <td>Live graph/cycles alerts + WAL replay inspector</td>
+                </tr>
+                <tr class="winner">
+                  <td>Token spend</td>
+                  <td>Roll your own serializer</td>
+                  <td>Compact surviving-state prompts (−43.5% spend)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
       <section id="pricing" class="band">
         <div class="wrap">
           <h2>Drop-in MCP memory for multi-agent teams.</h2>
-          <p class="lead">Connect Claude Code, Cursor, or custom multi-agent swarms in minutes.</p>
+          <p class="lead">
+            Cutting 43.5% off active swarm token spend pays for Lion Fabric in the first week.
+          </p>
 
           <div class="pricing-grid">
             <div>
               <h3>Developer</h3>
               <div class="tier-price">$29 / mo</div>
-              <p class="tier-copy">10 swarm workspaces, SHA-256 staleness, live SSE handoffs.</p>
+              <p class="tier-copy">10 MCP workspaces, SHA-256 staleness, live SSE handoffs, blast preview.</p>
               <a class="btn" href="mailto:andrue.anderson.cs@gmail.com?subject=Lion%20Fabric%20Developer">Start pilot</a>
             </div>
             <div>
               <h3>Team</h3>
               <div class="tier-price">$149 / mo</div>
-              <p class="tier-copy">Unlimited workspaces, WAL branching, deadlock cycle alerts.</p>
+              <p class="tier-copy">Unlimited workspaces, GitHub auto-hashing, WAL inspector, deadlock alerts.</p>
               <a class="btn btn-primary" href="mailto:andrue.anderson.cs@gmail.com?subject=Lion%20Fabric%20Team">Request access</a>
             </div>
             <div>
               <h3>Enterprise</h3>
               <div class="tier-price">Custom</div>
-              <p class="tier-copy">Dedicated VPC cluster, GitHub auto-hashing, SSO and SLA.</p>
+              <p class="tier-copy">Dedicated VPC cluster, private repo webhooks, SSO, custom retention &amp; SLA.</p>
               <a class="btn" href="mailto:andrue.anderson.cs@gmail.com?subject=Lion%20Fabric%20Enterprise">Talk to us</a>
             </div>
           </div>
@@ -219,7 +352,7 @@
 
     <footer class="footer">
       <div class="wrap footer-inner">
-        <span>Lion Fabric — powered by Lion 0.19</span>
+        <span>Lion Fabric — powered by MIT Lion 0.19</span>
         <a class="text-link" href="benchmarks.html">Read the 15-episode Sonnet benchmark →</a>
       </div>
     </footer>
@@ -228,17 +361,54 @@
     <script type="module">
       const $ = (id) => document.getElementById(id);
 
+      // Use-case tab switcher
+      document.querySelectorAll("[data-uc]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const id = btn.getAttribute("data-uc");
+          document.querySelectorAll("[data-uc]").forEach((b) =>
+            b.setAttribute("aria-selected", String(b === btn))
+          );
+          document.querySelectorAll("[data-uc-panel]").forEach((p) => {
+            p.hidden = p.getAttribute("data-uc-panel") !== id;
+          });
+        });
+      });
+
+      const presets = {
+        checkout: {
+          path: "services/checkout.ts",
+          init: "export const timeoutMs = 1000;",
+          next: "export const timeoutMs = 6000;",
+          obs: ["pool_exhausted", "dns_timeout"],
+        },
+        openapi: {
+          path: "openapi/orders.yaml",
+          init: "price_cents: { type: integer }",
+          next: "amount_minor: { type: integer }",
+          obs: ["sdk_field_valid", "webhook_schema_ok"],
+        },
+        runbook: {
+          path: "docs/incident-policy.md",
+          init: "sev1_escalate_after_min: 15",
+          next: "sev1_escalate_after_min: 5",
+          obs: ["pager_delay_ok", "sla_window_checked"],
+        },
+      };
+
       const runBlast = async () => {
+        const p = presets[$("fab-preset").value];
         const res = await window.LionDemos.demoFabricStaleness({
+          artifactPath: p.path,
           initialContent: $("fab-init").value,
           editedContent: $("fab-next").value,
+          obsLabels: p.obs,
         });
         const v = $("fab-verdict");
         v.className = `verdict-word ${res.unchanged ? "ok" : "err"}`;
         v.textContent = res.unchanged ? "All fresh" : "2 expired";
         $("fab-summary").textContent = res.unchanged
-          ? "Digest unchanged. Agent B's checks remain valid."
-          : "Digest changed. Agent B stops using stale clues.";
+          ? `Digest unchanged on ${p.path}. Agent B's clues remain valid.`
+          : `Digest changed on ${p.path}. Agent B stops using stale clues.`;
         $("fab-latency").textContent = `${res.latencyMs} ms`;
         $("fab-match").textContent = res.unchanged ? "Identical SHA-256" : "Changed SHA-256";
         $("fab-stale").textContent = res.wouldBecomeStale.length
@@ -247,6 +417,12 @@
         $("fab-output").textContent = JSON.stringify(res, null, 2);
       };
 
+      $("fab-preset").addEventListener("change", () => {
+        const p = presets[$("fab-preset").value];
+        $("fab-init").value = p.init;
+        $("fab-next").value = p.next;
+        runBlast();
+      });
       $("fab-same-btn").addEventListener("click", () => {
         $("fab-next").value = $("fab-init").value;
         runBlast();

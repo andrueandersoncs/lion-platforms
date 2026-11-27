@@ -174,6 +174,109 @@ export const demoGateEvaluate = async (opts: {
   };
 };
 
+// Multi-domain Gate policy supporting Cloud/DB deploys & IAM escalations in addition to Payments
+const GATE_MULTI_POLICY: unknown[] = [
+  "begin",
+  ["relation", "env_state", ["env", "freeze_active"], { key: ["env"] }],
+  ["relation", "proposed_deploy", ["req_id", "env", "destructive", "has_cab_ticket"], { key: ["req_id"] }],
+  ["relation", "deploy_denied_reason", ["req_id", "reason"]],
+  ["relation", "deploy_allowed", ["req_id"]],
+  ["relation", "proposed_iam", ["req_id", "actor_role", "target_role", "has_breakglass"], { key: ["req_id"] }],
+  ["relation", "iam_denied_reason", ["req_id", "reason"]],
+  ["relation", "iam_allowed", ["req_id"]],
+  ["fact", ["env_state", "prod", true], ["env_state", "staging", false]],
+  [
+    "rule",
+    ["deploy_denied_reason", "?req", "prod_freeze_active"],
+    ["proposed_deploy", "?req", "?env", "?_", false],
+    ["env_state", "?env", true],
+  ],
+  [
+    "rule",
+    ["deploy_denied_reason", "?req", "destructive_migration_needs_cab"],
+    ["proposed_deploy", "?req", "prod", true, false],
+  ],
+  [
+    "rule",
+    ["deploy_allowed", "?req"],
+    ["proposed_deploy", "?req", "?_", "?_", "?_"],
+    ["not", ["deploy_denied_reason", "?req", "?_"]],
+  ],
+  [
+    "rule",
+    ["iam_denied_reason", "?req", "bot_cannot_grant_owner"],
+    ["proposed_iam", "?req", "support_bot", "org_owner", false],
+  ],
+  [
+    "rule",
+    ["iam_denied_reason", "?req", "missing_breakglass_ticket"],
+    ["proposed_iam", "?req", "?_", "org_owner", false],
+  ],
+  [
+    "rule",
+    ["iam_allowed", "?req"],
+    ["proposed_iam", "?req", "?_", "?_", "?_"],
+    ["not", ["iam_denied_reason", "?req", "?_"]],
+  ],
+];
+
+export const demoGateDomainEvaluate = async (opts: {
+  readonly approvedByHuman: boolean;
+  readonly domain: "deploy" | "iam";
+  readonly reqId: string;
+}): Promise<GateEvalResult> => {
+  const db = newDb();
+  await runLion(GATE_MULTI_POLICY, db);
+  const t0 = performance.now();
+  const query =
+    opts.domain === "deploy"
+      ? [
+          "assuming",
+          ["fact", ["proposed_deploy", opts.reqId, "prod", true, opts.approvedByHuman]],
+          [
+            "array/make",
+            ["find", true, ["deploy_allowed", opts.reqId]],
+            ["find", "?r", ["deploy_denied_reason", opts.reqId, "?r"]],
+          ],
+        ]
+      : [
+          "assuming",
+          ["fact", ["proposed_iam", opts.reqId, "support_bot", "org_owner", opts.approvedByHuman]],
+          [
+            "array/make",
+            ["find", true, ["iam_allowed", opts.reqId]],
+            ["find", "?r", ["iam_denied_reason", opts.reqId, "?r"]],
+          ],
+        ];
+  const [allowedRows, reasonRows] = (await runLion(query, db)) as [unknown[], string[]];
+  const allowed = allowedRows.length > 0;
+  const kp = await getDemoKeyPair();
+  const envelope = await Effect.runPromise(
+    createProofEnvelope({
+      database: db,
+      issuer: "lion-gate-demo",
+      keyPair: kp,
+      query,
+      result: {
+        allowed,
+        approvedByHuman: opts.approvedByHuman,
+        deniedReasons: reasonRows,
+        domain: opts.domain,
+        reqId: opts.reqId,
+      },
+    })
+  );
+  const latencyMs = Math.round((performance.now() - t0) * 100) / 100;
+  const ver = await Effect.runPromise(verifyProofEnvelope(envelope, kp.publicKeyJwk));
+  return {
+    allowed,
+    deniedReasons: reasonRows,
+    envelope,
+    latencyMs,
+    verified: ver.valid,
+  };
+};
+
 export const demoGateProve = async (kind: "safe" | "buggy") => {
   const db = newDb();
   await runLion(GATE_POLICY, db);
@@ -323,9 +426,13 @@ export const demoDossierBoundsAndSign = async (opts: {
 // 3. LION FABRIC LIVE DEMO
 // =========================================================================
 export const demoFabricStaleness = async (opts: {
+  readonly artifactPath?: string;
   readonly editedContent: string;
   readonly initialContent: string;
+  readonly obsLabels?: readonly [string, string];
 }) => {
+  const path = opts.artifactPath ?? "services/checkout.ts";
+  const [q1, q2] = opts.obsLabels ?? ["pool_exhausted", "dns_timeout"];
   const t0 = performance.now();
   const db = newDb();
   const res = (await runLion(
@@ -357,9 +464,9 @@ export const demoFabricStaleness = async (opts: {
       ["define", "h2", ["string/sha256", opts.editedContent]],
       [
         "fact",
-        ["artifact", "services/checkout.ts", "h1"],
-        ["observation", "obs_1", "pool_exhausted", true, "services/checkout.ts", "h1"],
-        ["observation", "obs_2", "dns_timeout", false, "services/checkout.ts", "h1"],
+        ["artifact", path, "h1"],
+        ["observation", "obs_1", q1, true, path, "h1"],
+        ["observation", "obs_2", q2, false, path, "h1"],
       ],
       ["define", "beforeFresh", ["find", "?id", ["fresh_observation", "?id", "?_"]]],
       [
@@ -367,11 +474,12 @@ export const demoFabricStaleness = async (opts: {
         "blastRadius",
         [
           "assuming",
-          ["fact", ["artifact", "services/checkout.ts", "h2"]],
+          ["fact", ["artifact", path, "h2"]],
           ["find", "?id", ["stale_observation", "?id", "?_"]],
         ],
       ],
       {
+        artifactPath: path,
         beforeFresh: "beforeFresh",
         editedHash: "h2",
         initialHash: "h1",
@@ -381,6 +489,7 @@ export const demoFabricStaleness = async (opts: {
     ],
     db
   )) as {
+    artifactPath: string;
     beforeFresh: string[];
     editedHash: string;
     initialHash: string;
@@ -407,6 +516,7 @@ declare global {
       demoDossierBoundsAndSign: typeof demoDossierBoundsAndSign;
       demoDossierCheckQuote: typeof demoDossierCheckQuote;
       demoFabricStaleness: typeof demoFabricStaleness;
+      demoGateDomainEvaluate: typeof demoGateDomainEvaluate;
       demoGateEvaluate: typeof demoGateEvaluate;
       demoGateProve: typeof demoGateProve;
       demoVerifyEnvelopeJson: typeof demoVerifyEnvelopeJson;
@@ -419,6 +529,7 @@ if (typeof window !== "undefined") {
     demoDossierBoundsAndSign,
     demoDossierCheckQuote,
     demoFabricStaleness,
+    demoGateDomainEvaluate,
     demoGateEvaluate,
     demoGateProve,
     demoVerifyEnvelopeJson,

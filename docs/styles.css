@@ -424,6 +424,83 @@ h3 {
   color: var(--forest-ink);
 }
 
+/* Visual 3-Node Stack Architecture Flow */
+.arch-flow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 36px minmax(0, 1.15fr) 36px minmax(0, 1fr);
+  gap: 12px;
+  align-items: stretch;
+  margin-top: 32px;
+}
+
+.arch-node {
+  border-radius: 12px;
+  padding: 24px;
+  background: rgba(11, 28, 22, 0.55);
+  border: 1px solid var(--forest-rule);
+}
+
+.arch-node.is-lion {
+  background: var(--forest);
+  border-color: var(--brass);
+}
+
+.band .arch-node {
+  background: var(--linen-card);
+  border-color: var(--rule);
+}
+
+.band .arch-node.is-lion {
+  background: var(--forest);
+  border-color: var(--forest);
+  color: var(--forest-ink);
+}
+
+.band .arch-node.is-lion .step-title {
+  color: var(--forest-ink);
+}
+
+.band .arch-node.is-lion .step-copy {
+  color: var(--forest-muted);
+}
+
+.arch-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--brass);
+}
+
+/* Segmented Tabs on Warm Linen Bands (Use-Case Switcher) */
+.tabs-light {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 10px;
+  background: var(--linen-card);
+  border: 1px solid var(--rule);
+  margin-bottom: 24px;
+}
+
+.tabs-light .tab-btn {
+  min-height: 44px;
+  color: var(--ink-muted);
+}
+
+.tabs-light .tab-btn[aria-selected="true"] {
+  background: var(--forest);
+  color: var(--forest-ink);
+}
+
+.band details.drawer summary {
+  color: var(--ink);
+}
+
+.band-emerald details.drawer summary {
+  color: var(--forest-ink);
+}
+
 /* Asymmetric Editorial Ledger on Overview */
 .ledger {
   border-top: 1px solid var(--rule);
@@ -708,9 +785,14 @@ tr.winner td {
   .ledger-row,
   .proof-strip,
   .instrument,
-  .pricing-grid {
+  .pricing-grid,
+  .arch-flow {
     grid-template-columns: 1fr;
     gap: 24px;
+  }
+  .arch-arrow {
+    transform: rotate(90deg);
+    height: 24px;
   }
   .ledger-thumb {
     width: 100%;
