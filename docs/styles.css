@@ -9,21 +9,25 @@
 }
 
 :root {
-  --ground: #f6f7f4;
-  --surface: #ffffff;
-  --ink: #101513;
-  --ink-muted: #4b5752;
-  --rule: #dce0da;
-  --rule-strong: #bfc6bd;
+  /* Committed Deep Forest Obsidian + Warm Architectural Linen */
+  --forest: #0b1c16;
+  --forest-card: #122921;
+  --forest-ink: #f4f2ea;
+  --forest-muted: #adc0b6;
+  --forest-rule: #214034;
 
-  --chamber: #0e221b;
-  --chamber-surface: #142d24;
-  --chamber-ink: #f2f5f3;
-  --chamber-muted: #a9bbb2;
-  --chamber-rule: #254338;
+  --linen: #efece4;
+  --linen-card: #e5e0d4;
+  --ink: #111815;
+  --ink-muted: #45524c;
+  --rule: #d3cdc0;
+  --rule-strong: #b4ac9c;
 
-  --accent: #0d7a52;
+  /* Purposeful Brass & Signal Accents */
+  --brass: #d49b35;
+  --brass-dark: #9a6914;
   --accent-bright: #4ade80;
+  --danger: #9f2c1f;
   --danger-bright: #fca5a5;
 
   --font-display: "Bricolage Grotesque", -apple-system, BlinkMacSystemFont, sans-serif;
@@ -36,9 +40,9 @@
 
 html {
   scroll-behavior: smooth;
-  background: var(--ground);
+  background: var(--forest);
   color: var(--ink);
-  caret-color: var(--accent);
+  caret-color: var(--brass);
 }
 
 body {
@@ -47,18 +51,18 @@ body {
   font-weight: 400;
   line-height: 1.55;
   color: var(--ink);
-  background: var(--ground);
+  background: var(--linen);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
 ::selection {
-  background: var(--chamber);
-  color: var(--chamber-ink);
+  background: var(--brass);
+  color: var(--forest);
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--brass);
   outline-offset: 3px;
   border-radius: 3px;
 }
@@ -69,18 +73,20 @@ a {
 }
 
 .wrap {
-  max-width: 1020px;
+  max-width: 1060px;
   margin: 0 auto;
   padding: 0 28px;
 }
 
-/* Non-sticky header so scrolled screens stay calm and uncluttered */
+/* Dark Architectural Header matching Deep Forest Hero */
 .nav {
-  border-bottom: 1px solid var(--rule);
+  background: var(--forest);
+  color: var(--forest-ink);
+  border-bottom: 1px solid var(--forest-rule);
 }
 
 .nav-inner {
-  max-width: 1020px;
+  max-width: 1060px;
   margin: 0 auto;
   padding: 20px 28px;
   display: flex;
@@ -97,14 +103,15 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 10px;
+  color: var(--forest-ink);
 }
 
 .brand-mark {
   width: 24px;
   height: 24px;
   border-radius: 6px;
-  background: var(--chamber);
-  color: var(--chamber-ink);
+  background: var(--brass);
+  color: var(--forest);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -120,21 +127,21 @@ a {
 .nav-links a {
   font-size: 16px;
   font-weight: 400;
-  color: var(--ink-muted);
+  color: var(--forest-muted);
   transition: color 160ms var(--ease-out);
 }
 
 .nav-links a.active {
-  color: var(--ink);
+  color: var(--forest-ink);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .nav-links a:hover {
-    color: var(--ink);
+    color: var(--forest-ink);
   }
 }
 
-/* Strict 4-style typographic economy across every screen */
+/* Typography */
 h1,
 h2,
 h3,
@@ -149,28 +156,28 @@ h3,
 }
 
 h1 {
-  font-size: clamp(2.8rem, 5.6vw, 4.4rem);
-  line-height: 1.04;
-  max-width: 14ch;
-  margin-bottom: 24px;
+  font-size: clamp(2.45rem, 4.8vw, 3.85rem);
+  line-height: 1.05;
+  max-width: 16ch;
+  margin-bottom: 20px;
 }
 
 h2,
 .proof-figure,
 .tier-price,
 .verdict-word {
-  font-size: clamp(1.85rem, 3.1vw, 2.5rem);
-  line-height: 1.1;
+  font-size: clamp(1.8rem, 3vw, 2.45rem);
+  line-height: 1.12;
 }
 
 h2 {
-  max-width: 22ch;
+  max-width: 26ch;
   margin-bottom: 16px;
 }
 
 h3 {
-  font-size: 1.3rem;
-  line-height: 1.2;
+  font-size: 1.28rem;
+  line-height: 1.25;
 }
 
 .lead,
@@ -179,7 +186,8 @@ h3 {
 .ledger-desc,
 .verdict-summary,
 .fact-key,
-.tier-copy {
+.tier-copy,
+.step-copy {
   font-size: 16px;
   font-weight: 400;
   line-height: 1.55;
@@ -187,12 +195,18 @@ h3 {
 }
 
 .lead {
-  max-width: 48ch;
-  margin-bottom: 36px;
+  max-width: 52ch;
+  margin-bottom: 32px;
 }
 
-/* Generous Architectural Vertical Pacing */
+/* Full-Bleed Deep Forest Hero with subtle architectural grid texture */
 .hero {
+  background-color: var(--forest);
+  background-image:
+    radial-gradient(ellipse 65% 55% at 75% 25%, rgba(212, 155, 53, 0.12), transparent 65%),
+    radial-gradient(rgba(244, 242, 234, 0.05) 1px, transparent 1px);
+  background-size: auto, 28px 28px;
+  color: var(--forest-ink);
   min-height: calc(100svh - 68px);
   display: flex;
   flex-direction: column;
@@ -200,11 +214,24 @@ h3 {
   padding: 56px 0 72px;
 }
 
+.hero .lead,
+.hero .proof-caption {
+  color: var(--forest-muted);
+}
+
 .hero-split {
   display: grid;
-  grid-template-columns: minmax(300px, 1.05fr) minmax(280px, 1fr);
+  grid-template-columns: minmax(300px, 1.08fr) minmax(280px, 1fr);
   gap: 44px;
   align-items: center;
+}
+
+/* Illuminated Museum Vitrine Frame for the 3D Hardware Plates */
+.plate-frame {
+  background: #f2f4ef;
+  border-radius: 16px;
+  padding: 10px;
+  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.36);
 }
 
 .hero-plate {
@@ -213,37 +240,41 @@ h3 {
   aspect-ratio: 4 / 3;
   object-fit: cover;
   display: block;
-  border-radius: 14px;
-  mix-blend-mode: multiply;
+  border-radius: 10px;
 }
 
+/* Warm Architectural Linen Bands (Zero Plain White!) */
 .band {
+  background: var(--linen);
+  color: var(--ink);
   min-height: calc(100svh - 106px);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(96px, 12vh, 144px) 0;
+  padding: clamp(80px, 10vh, 120px) 0;
   border-top: 1px solid var(--rule);
 }
 
+/* Deep Forest Chamber Band for Live Proof Instruments */
 .chamber {
-  background: var(--chamber);
-  color: var(--chamber-ink);
+  background-color: var(--forest);
+  background-image: radial-gradient(ellipse 60% 50% at 20% 10%, rgba(52, 211, 153, 0.07), transparent 65%);
+  color: var(--forest-ink);
   min-height: 100svh;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(96px, 12vh, 140px) 0;
+  padding: clamp(84px, 10vh, 128px) 0;
 }
 
 .chamber .lead,
 .chamber .muted,
 .chamber .verdict-summary,
 .chamber .fact-key {
-  color: var(--chamber-muted);
+  color: var(--forest-muted);
 }
 
-/* Actions & Tactile Buttons */
+/* Buttons — Brass primary on dark, Obsidian primary on linen */
 .actions {
   display: flex;
   align-items: center;
@@ -274,20 +305,22 @@ h3 {
 }
 
 .btn-primary {
-  background: var(--ink);
-  border-color: var(--ink);
-  color: var(--surface);
+  background: var(--forest);
+  border-color: var(--forest);
+  color: var(--forest-ink);
 }
 
+.hero .btn,
 .chamber .btn {
-  border-color: var(--chamber-rule);
-  color: var(--chamber-ink);
+  border-color: var(--forest-rule);
+  color: var(--forest-ink);
 }
 
+.hero .btn-primary,
 .chamber .btn-primary {
-  background: var(--chamber-ink);
-  border-color: var(--chamber-ink);
-  color: var(--chamber);
+  background: var(--brass);
+  border-color: var(--brass);
+  color: var(--forest);
 }
 
 .btn[disabled] {
@@ -300,15 +333,17 @@ h3 {
     border-color: var(--ink);
   }
   .btn-primary:hover:not([disabled]) {
-    background: #1d2b25;
-    border-color: #1d2b25;
+    background: #17362b;
+    border-color: #17362b;
   }
+  .hero .btn:hover:not([disabled]),
   .chamber .btn:hover:not([disabled]) {
-    border-color: var(--chamber-ink);
+    border-color: var(--forest-ink);
   }
+  .hero .btn-primary:hover:not([disabled]),
   .chamber .btn-primary:hover:not([disabled]) {
-    background: #ffffff;
-    border-color: #ffffff;
+    background: #e3ad4b;
+    border-color: #e3ad4b;
   }
 }
 
@@ -316,31 +351,80 @@ h3 {
   font-size: 16px;
   font-weight: 400;
   color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  text-decoration-color: var(--rule-strong);
 }
 
+.hero .text-link,
 .chamber .text-link {
-  color: var(--chamber-ink);
+  color: var(--forest-ink);
+  text-decoration-color: var(--forest-rule);
 }
 
-/* Proof Row — 3 clean facts separated by whitespace */
+/* Proof Row inside Dark Hero */
 .proof-strip {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 36px;
-  padding-top: 48px;
-  margin-top: 64px;
-  border-top: 1px solid var(--rule);
+  padding-top: 40px;
+  margin-top: 52px;
+  border-top: 1px solid var(--forest-rule);
 }
 
 .proof-figure {
-  margin-bottom: 8px;
+  margin-bottom: 6px;
+  color: var(--forest-ink);
 }
 
 .proof-caption {
-  max-width: 24ch;
+  max-width: 26ch;
 }
 
-/* Asymmetric Editorial Ledger */
+/* Alternating Committed Story Band (Deep Botanical Emerald for "How Lion Solves It") */
+.band-emerald {
+  background: #142e25;
+  color: var(--forest-ink);
+  min-height: calc(100svh - 106px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(80px, 10vh, 120px) 0;
+  border-top: 1px solid var(--forest-rule);
+}
+
+.band-emerald .lead,
+.band-emerald .step-copy {
+  color: var(--forest-muted);
+}
+
+/* 3-Column Concrete Walkthrough Grid (Pain Band & How-Lion-Solves-It Band) */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 36px;
+  margin-top: 36px;
+  padding-top: 32px;
+  border-top: 1px solid var(--rule);
+}
+
+.band-emerald .steps-grid {
+  border-top-color: var(--forest-rule);
+}
+
+.step-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  margin-bottom: 10px;
+}
+
+.band-emerald .step-title {
+  color: var(--forest-ink);
+}
+
+/* Asymmetric Editorial Ledger on Overview */
 .ledger {
   border-top: 1px solid var(--rule);
   margin-top: 24px;
@@ -348,10 +432,10 @@ h3 {
 
 .ledger-row {
   display: grid;
-  grid-template-columns: 168px minmax(160px, 0.9fr) minmax(220px, 1.8fr) auto;
+  grid-template-columns: 168px minmax(160px, 0.85fr) minmax(240px, 1.9fr) auto;
   gap: 24px 32px;
   align-items: center;
-  padding: 36px 0;
+  padding: 32px 0;
   border-bottom: 1px solid var(--rule);
 }
 
@@ -361,30 +445,30 @@ h3 {
   object-fit: cover;
   display: block;
   border-radius: 10px;
-  mix-blend-mode: multiply;
+  border: 1px solid var(--rule);
 }
 
 .ledger-metric {
   font-family: var(--font-display);
-  font-size: 1.3rem;
+  font-size: 1.15rem;
   font-weight: 600;
-  color: var(--ink);
+  color: var(--ink-muted);
   font-variant-numeric: tabular-nums;
-  margin-top: 6px;
+  margin-top: 4px;
 }
 
 .ledger-desc {
-  max-width: 44ch;
+  max-width: 46ch;
 }
 
-/* Segmented Tabs inside Chamber (Focus on 1 instrument at a time) */
+/* Segmented Tabs inside Chamber */
 .tabs {
   display: inline-flex;
   gap: 4px;
   padding: 4px;
   border-radius: 10px;
-  background: var(--chamber-surface);
-  border: 1px solid var(--chamber-rule);
+  background: var(--forest-card);
+  border: 1px solid var(--forest-rule);
   margin-bottom: 32px;
 }
 
@@ -394,7 +478,7 @@ h3 {
   border: none;
   border-radius: 7px;
   background: transparent;
-  color: var(--chamber-muted);
+  color: var(--forest-muted);
   font-family: var(--font-body);
   font-size: 16px;
   font-weight: 400;
@@ -408,8 +492,8 @@ h3 {
 }
 
 .tab-btn[aria-selected="true"] {
-  background: var(--chamber-ink);
-  color: var(--chamber);
+  background: var(--brass);
+  color: var(--forest);
 }
 
 .tab-panel[hidden] {
@@ -423,7 +507,7 @@ h3 {
   gap: 48px;
   align-items: start;
   padding-top: 32px;
-  border-top: 1px solid var(--chamber-rule);
+  border-top: 1px solid var(--forest-rule);
 }
 
 .field {
@@ -434,7 +518,7 @@ h3 {
   display: block;
   font-size: 16px;
   font-weight: 400;
-  color: var(--chamber-muted);
+  color: var(--forest-muted);
   margin-bottom: 8px;
 }
 
@@ -446,9 +530,9 @@ h3 {
   min-height: 44px;
   padding: 10px 14px;
   border-radius: 8px;
-  border: 1px solid var(--chamber-rule);
-  background: var(--chamber-surface);
-  color: var(--chamber-ink);
+  border: 1px solid var(--forest-rule);
+  background: var(--forest-card);
+  color: var(--forest-ink);
   font-family: var(--font-body);
   font-size: 16px;
 }
@@ -460,10 +544,10 @@ h3 {
   line-height: 1.5;
 }
 
-/* Human-Readable Verdict Panel (0 code lines at rest) */
+/* Human-Readable Verdict Panel */
 .verdict-panel {
-  background: var(--chamber-surface);
-  border: 1px solid var(--chamber-rule);
+  background: var(--forest-card);
+  border: 1px solid var(--forest-rule);
   border-radius: 12px;
   padding: 28px;
 }
@@ -485,7 +569,7 @@ h3 {
 }
 
 .facts-list {
-  border-top: 1px solid var(--chamber-rule);
+  border-top: 1px solid var(--forest-rule);
 }
 
 .fact-row {
@@ -493,18 +577,17 @@ h3 {
   justify-content: space-between;
   gap: 16px;
   padding: 12px 0;
-  border-bottom: 1px solid var(--chamber-rule);
+  border-bottom: 1px solid var(--forest-rule);
   font-size: 16px;
 }
 
 .fact-val {
-  color: var(--chamber-ink);
+  color: var(--forest-ink);
   font-weight: 400;
   font-variant-numeric: tabular-nums;
   text-align: right;
 }
 
-/* Folded Code Drawer (zero code visible at rest) */
 details.drawer {
   margin-top: 20px;
   padding-top: 14px;
@@ -513,7 +596,7 @@ details.drawer {
 details.drawer summary {
   font-size: 16px;
   font-weight: 400;
-  color: var(--chamber-muted);
+  color: var(--forest-muted);
   cursor: pointer;
   list-style: none;
   display: inline-flex;
@@ -537,7 +620,7 @@ details.drawer pre {
   margin-top: 14px;
   padding: 16px;
   border-radius: 8px;
-  background: #091712;
+  background: #07140f;
   color: #d6e4dd;
   font-family: var(--font-mono);
   font-size: 12.5px;
@@ -546,7 +629,7 @@ details.drawer pre {
   max-height: 300px;
 }
 
-/* Clean Hairline Tables */
+/* Tables on Warm Linen */
 .table-wrap {
   overflow-x: auto;
   margin-top: 28px;
@@ -576,53 +659,28 @@ tr.winner td {
   color: var(--ink);
 }
 
-/* Concrete Use-Case Grid (3 scannable real-world scenes, zero card clutter) */
-.cases-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 44px;
-  margin-top: 44px;
-  padding-top: 36px;
-  border-top: 1px solid var(--rule);
-}
-
-.cases-grid h3 {
-  margin-bottom: 12px;
-}
-
-.case-copy {
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.55;
-  color: var(--ink-muted);
-  max-width: 28ch;
-}
-
-/* Clean Pricing Columns (1 crisp sentence per tier — zero bullet clutter) */
+/* Pricing Columns */
 .pricing-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 44px;
-  margin-top: 44px;
+  margin-top: 40px;
   padding-top: 36px;
   border-top: 1px solid var(--rule);
 }
 
 .tier-price {
-  margin: 12px 0 14px;
+  margin: 10px 0 14px;
 }
 
 .tier-copy {
   margin-bottom: 24px;
-  max-width: 26ch;
+  max-width: 28ch;
 }
 
-/* Quiet Footer */
-.chamber-compact {
-  min-height: calc(100svh - 106px);
-}
-
+/* Footer */
 .footer {
+  background: var(--linen);
   border-top: 1px solid var(--rule);
   padding: 40px 0;
   font-size: 16px;
@@ -643,12 +701,12 @@ tr.winner td {
     padding: 44px 0 56px;
   }
   .chamber {
-    padding: 72px 0 112px;
+    padding: 72px 0 100px;
   }
   .hero-split,
+  .steps-grid,
   .ledger-row,
   .proof-strip,
-  .cases-grid,
   .instrument,
   .pricing-grid {
     grid-template-columns: 1fr;

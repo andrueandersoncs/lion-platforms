@@ -1,9 +1,9 @@
 {
   "pages": [
-    { "url": "http://127.0.0.1:4210/index.html", "profile": "skimmer" },
-    { "url": "http://127.0.0.1:4210/gate.html", "profile": "skimmer" },
-    { "url": "http://127.0.0.1:4210/dossier.html", "profile": "skimmer" },
-    { "url": "http://127.0.0.1:4210/fabric.html", "profile": "skimmer" },
+    { "url": "http://127.0.0.1:4210/index.html", "profile": "general" },
+    { "url": "http://127.0.0.1:4210/gate.html", "profile": "general" },
+    { "url": "http://127.0.0.1:4210/dossier.html", "profile": "general" },
+    { "url": "http://127.0.0.1:4210/fabric.html", "profile": "general" },
     { "url": "http://127.0.0.1:4210/benchmarks.html", "profile": "general" },
     { "url": "http://127.0.0.1:4210/verify.html", "profile": "general" }
   ]
