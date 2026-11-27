@@ -64,8 +64,8 @@
               <p class="proof-caption">$0.20 vs. $0.35 Sonnet cost using compact symbolic state.</p>
             </div>
             <div>
-              <div class="proof-figure">26.5 ms SSE</div>
-              <p class="proof-caption">Zero-polling handoff wakeup when tasks unblock.</p>
+              <div class="proof-figure">26.5 ms handoff</div>
+              <p class="proof-caption">Instant wakeup pushed to waiting agents when tasks unblock.</p>
             </div>
           </div>
         </div>
@@ -90,21 +90,21 @@
                 <div class="step-title">What breaks today</div>
                 <p class="step-copy">
                   Agent A refactors openapi/orders.yaml or checkout.ts while Agent B keeps
-                  writing tests against 0.94-similarity vector chunks from the old file.
+                  writing tests against high-similarity vector chunks from the old file.
                 </p>
               </div>
               <div>
                 <div class="step-title">What Lion Fabric enforces</div>
                 <p class="step-copy">
-                  Pins every observation to string/sha256(file). The instant a file changes,
-                  dependent clues flip stale automatically (15/15 → 0 errors).
+                  Pins every finding to a file fingerprint (SHA-256). The instant a file
+                  changes, outdated clues expire automatically (15/15 → 0 errors).
                 </p>
               </div>
               <div>
                 <div class="step-title">Token &amp; blast savings</div>
                 <p class="step-copy">
-                  Pre-edit assuming previews which teammate findings will break, while
-                  compact surviving state cuts Sonnet token spend 43.5%.
+                  Before editing, agents preview which teammate findings will expire, while
+                  compact active state cuts Sonnet token spend 43.5%.
                 </p>
               </div>
             </div>
@@ -122,15 +122,15 @@
               <div>
                 <div class="step-title">What Lion Fabric enforces</div>
                 <p class="step-copy">
-                  Links every hypothesis to live config and log digests, expiring refuted
+                  Links every hypothesis to live config and log fingerprints, expiring refuted
                   clues immediately so responders pivot in lockstep.
                 </p>
               </div>
               <div>
                 <div class="step-title">Zero-polling handoffs</div>
                 <p class="step-copy">
-                  SSE pushes state deltas in 26.5 ms when blocking diagnostics complete —
-                  no wasted retry loops or bloated prose scratchpads.
+                  Live event pushes wake waiting agents in 26.5 ms when blocking diagnostics
+                  finish — no wasted retry loops or bloated prose scratchpads.
                 </p>
               </div>
             </div>
@@ -148,15 +148,15 @@
               <div>
                 <div class="step-title">What Lion Fabric enforces</div>
                 <p class="step-copy">
-                  Runs graph/cycles over task dependencies to catch deadlocks instantly and
-                  serves only active, non-stale facts over MCP.
+                  Checks task dependencies to catch circular deadlocks instantly and serves
+                  only active, non-expired facts over MCP.
                 </p>
               </div>
               <div>
-                <div class="step-title">Replayable WAL history</div>
+                <div class="step-title">Full replay history</div>
                 <p class="step-copy">
-                  Every workspace change is logged in an append-only WAL so teams can branch,
-                  replay, or audit any swarm run post-mortem.
+                  Every workspace change is logged in a replayable timeline so teams can
+                  branch, replay, or audit any swarm run post-mortem.
                 </p>
               </div>
             </div>
@@ -169,7 +169,7 @@
           <h2>How Lion Fabric fits your stack in 5 minutes.</h2>
           <p class="lead">
             Add one MCP server entry to Claude Code, Cursor, or LangGraph — every
-            agent shares one hash-pinned symbolic workspace over SSE.
+            agent shares one fingerprint-pinned workspace with instant push wakeups.
           </p>
 
           <div class="arch-flow" aria-label="Lion Fabric architecture flow">
@@ -185,9 +185,9 @@
               </svg>
             </div>
             <div class="arch-node is-lion">
-              <div class="step-title">2. Lion Fabric MCP + SSE</div>
+              <div class="step-title">2. Lion Fabric (Sync)</div>
               <p class="step-copy">
-                Pins clues to SHA-256 hashes, checks graph/cycles, previews blast radius, and pushes 26 ms deltas.
+                Pins clues to file hashes, catches task deadlocks, previews edit impact, and wakes teammates in 26 ms.
               </p>
             </div>
             <div class="arch-arrow" aria-hidden="true">
@@ -196,9 +196,9 @@
               </svg>
             </div>
             <div class="arch-node">
-              <div class="step-title">3. Repo &amp; Inspector</div>
+              <div class="step-title">3. Repo &amp; Replay</div>
               <p class="step-copy">
-                Git webhooks and file watchers keep artifact digests live; WAL inspector replays runs.
+                Git webhooks keep file hashes live; timeline inspector replays any swarm run.
               </p>
             </div>
           </div>
@@ -280,7 +280,7 @@
           <h2>What you pay for vs. open-source Lion.</h2>
           <p class="lead">
             The engine is MIT open source. Lion Fabric runs the hosted MCP workspace,
-            SSE bus, and WAL inspector.
+            live handoff bus, and replay inspector.
           </p>
 
           <div class="table-wrap">
@@ -301,17 +301,17 @@
                 <tr>
                   <td>Handoffs</td>
                   <td>Build your own pub/sub</td>
-                  <td>26.5 ms SSE push bus when blocked tasks clear</td>
+                  <td>26.5 ms push wakeups when blocked tasks clear</td>
                 </tr>
                 <tr>
                   <td>Deadlocks</td>
-                  <td>Run queries manually</td>
-                  <td>Live graph/cycles alerts + WAL replay inspector</td>
+                  <td>Run checks manually</td>
+                  <td>Automatic deadlock alerts + full timeline replay UI</td>
                 </tr>
                 <tr class="winner">
                   <td>Token spend</td>
                   <td>Roll your own serializer</td>
-                  <td>Compact surviving-state prompts (−43.5% spend)</td>
+                  <td>Compact active-state prompts (−43.5% spend)</td>
                 </tr>
               </tbody>
             </table>
@@ -330,13 +330,13 @@
             <div>
               <h3>Developer</h3>
               <div class="tier-price">$29 / mo</div>
-              <p class="tier-copy">10 MCP workspaces, SHA-256 staleness, live SSE handoffs, blast preview.</p>
+              <p class="tier-copy">10 MCP workspaces, SHA-256 staleness, instant handoff wakeups, edit-impact preview.</p>
               <a class="btn" href="mailto:andrue.anderson.cs@gmail.com?subject=Lion%20Fabric%20Developer">Start pilot</a>
             </div>
             <div>
               <h3>Team</h3>
               <div class="tier-price">$149 / mo</div>
-              <p class="tier-copy">Unlimited workspaces, GitHub auto-hashing, WAL inspector, deadlock alerts.</p>
+              <p class="tier-copy">Unlimited workspaces, GitHub auto-hashing, timeline replay UI, deadlock alerts.</p>
               <a class="btn btn-primary" href="mailto:andrue.anderson.cs@gmail.com?subject=Lion%20Fabric%20Team">Request access</a>
             </div>
             <div>

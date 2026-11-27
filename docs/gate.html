@@ -35,7 +35,7 @@
               <h1>Never let an LLM guess whether an action is allowed.</h1>
               <p class="lead">
                 Whether an agent issues refunds, changes IAM roles, writes to prod,
-                or wires funds, Lion Gate enforces deterministic Datalog policies in
+                or wires funds, Lion Gate enforces deterministic policy rules in
                 7 ms, proves rules safe before deploy, and signs every receipt.
               </p>
               <div class="actions">
@@ -96,15 +96,15 @@
               <div>
                 <div class="step-title">What Lion Gate enforces</div>
                 <p class="step-copy">
-                  Checks live KYC, balance, and $500 tier caps in 7 ms via assuming.
-                  Returns needs_human_approval so $750 routes to Slack and auto-retries.
+                  Dry-runs live KYC, balance, and $500 tier caps in 7 ms. Returns exact
+                  denial reasons so valid $750 requests route to Slack and auto-retry.
                 </p>
               </div>
               <div>
                 <div class="step-title">Pre-deploy guarantee</div>
                 <p class="step-copy">
-                  GitHub Action proves apply_refund never overdrafts any integer and blocks
-                  buggy PRs with counterexample bal=0, amt=1.
+                  GitHub Action mathematically proves refund rules can never overdraft
+                  and blocks buggy PRs with a failing test case (bal=0, amt=1).
                 </p>
               </div>
             </div>
@@ -187,7 +187,7 @@
             <div class="arch-node is-lion">
               <div class="step-title">2. Lion Gate (7 ms)</div>
               <p class="step-copy">
-                Evaluates Datalog rules via assuming, returns structured why predicates, and signs Ed25519 receipt.
+                Dry-runs policy rules without side effects, returns exact denial reasons, and signs a cryptographic receipt.
               </p>
             </div>
             <div class="arch-arrow" aria-hidden="true">
@@ -369,9 +369,9 @@ await stripe.refunds.create(toolCall); // decision.envelope stored for audit
                   <td>Drop-in GitHub Action blocking unsafe PRs</td>
                 </tr>
                 <tr class="winner">
-                  <td>Audit &amp; KMS</td>
+                  <td>Audit &amp; signing</td>
                   <td>Roll your own keys</td>
-                  <td>Managed Ed25519 KMS, 1-yr log &amp; verifier UI</td>
+                  <td>Managed cryptographic signing, 1-yr log &amp; verifier UI</td>
                 </tr>
               </tbody>
             </table>

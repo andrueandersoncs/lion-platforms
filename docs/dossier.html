@@ -96,15 +96,15 @@
               <div>
                 <div class="step-title">What Lion Dossier enforces</div>
                 <p class="step-copy">
-                  HTTP 422 rejects $243M at write time, supersedes retires $235M, relays
-                  collapse blogs onto one 10-K, and GAAP vs. Adjusted pauses for review.
+                  Blocks $243M before it saves (forcing auto-repair), retires the old $235M
+                  release, collapses echoing blogs onto one 10-K, and flags GAAP conflicts.
                 </p>
               </div>
               <div>
                 <div class="step-title">Signed deliverable</div>
                 <p class="step-copy">
-                  Exact rational proof/bounds verifies gross margin (31.09%–33.88%) and
-                  seals the memo for offline browser verification by partners or LPs.
+                  Exact math proofs verify gross margin bounds (31.09%–33.88%) and seal
+                  the memo for offline browser verification by partners or LPs.
                 </p>
               </div>
             </div>
@@ -122,15 +122,15 @@
               <div>
                 <div class="step-title">What Lion Dossier enforces</div>
                 <p class="step-copy">
-                  Every quote must match the source transcript verbatim (HTTP 422 on drift),
-                  and supersession rules flag overruled or amended authorities automatically.
+                  Every quote must match the source transcript verbatim (mismatches are
+                  blocked before save), and revision tracking flags overruled authorities.
                 </p>
               </div>
               <div>
                 <div class="step-title">Signed deliverable</div>
                 <p class="step-copy">
-                  Exports a court-ready citation table with exact source hashes and a
-                  tamper-evident Ed25519 envelope any opposing counsel or partner can inspect.
+                  Exports a court-ready citation table with exact source fingerprints and a
+                  tamper-evident receipt any opposing counsel or partner can inspect.
                 </p>
               </div>
             </div>
@@ -148,15 +148,15 @@
               <div>
                 <div class="step-title">What Lion Dossier enforces</div>
                 <p class="step-copy">
-                  Parses every percentage against the verbatim quote, collapses relayed news
+                  Checks every percentage against the verbatim quote, collapses relayed news
                   onto primary cohorts, and marks retracted papers inactive immediately.
                 </p>
               </div>
               <div>
                 <div class="step-title">Signed deliverable</div>
                 <p class="step-copy">
-                  Proves exact cohort bounds with Lion's rational solver and seals the audit
-                  dossier with Ed25519 for regulatory submission.
+                  Proves exact cohort bounds with Lion's math solver and cryptographically
+                  seals the audit dossier for regulatory submission.
                 </p>
               </div>
             </div>
@@ -168,7 +168,7 @@
         <div class="wrap">
           <h2>How Lion Dossier fits your stack in 10 minutes.</h2>
           <p class="lead">
-            Ingest source docs once, point your research agents at the HTTP 422 claim
+            Ingest source docs once, point your research agents at our claim-verification
             API or MCP server, and review sealed deliverables in the Workbench.
           </p>
 
@@ -185,9 +185,9 @@
               </svg>
             </div>
             <div class="arch-node is-lion">
-              <div class="step-title">2. Lion Dossier (422 Gate)</div>
+              <div class="step-title">2. Lion Dossier (Verify)</div>
               <p class="step-copy">
-                Blocks bad quotes with auto-repair, resolves supersedes &amp; relays, and proves bounds.
+                Rejects bad quotes so agents auto-fix them, retires outdated sources, deduplicates relays, and proves math.
               </p>
             </div>
             <div class="arch-arrow" aria-hidden="true">
@@ -198,7 +198,7 @@
             <div class="arch-node">
               <div class="step-title">3. Workbench &amp; Verifier</div>
               <p class="step-copy">
-                Team resolves flagged conflicts and shares an offline-verifiable Ed25519 link.
+                Team resolves flagged conflicts and shares a tamper-evident browser verification link.
               </p>
             </div>
           </div>
@@ -244,7 +244,7 @@ const { envelope, verifyUrl } = await dossier.seal("tarnwell", { proveBounds: "g
                     <option value="bad-num">10-K Diligence: mistyped $243M (filing says $240M)</option>
                     <option value="legal">Legal Deposition: paraphrased quote not in transcript</option>
                     <option value="clinical">Clinical Trial: 18% claimed vs. 12% in study PDF</option>
-                    <option value="good">10-K Diligence: grounded verbatim $240M (HTTP 201)</option>
+                    <option value="good">10-K Diligence: grounded verbatim $240M (valid)</option>
                   </select>
                 </div>
                 <div class="field">
@@ -331,8 +331,8 @@ const { envelope, verifyUrl } = await dossier.seal("tarnwell", { proveBounds: "g
         <div class="wrap">
           <h2>What you pay for vs. open-source Lion.</h2>
           <p class="lead">
-            The logic engine is MIT open source. Lion Dossier delivers the grounding
-            API, workbench, and verification portal.
+            The logic engine is MIT open source. Lion Dossier delivers the verification
+            API, workbench, and sharing portal.
           </p>
 
           <div class="table-wrap">
@@ -346,24 +346,24 @@ const { envelope, verifyUrl } = await dossier.seal("tarnwell", { proveBounds: "g
               </thead>
               <tbody>
                 <tr>
-                  <td>422 Gate</td>
+                  <td>Write-time check</td>
                   <td>Write parsers yourself</td>
-                  <td>Turnkey HTTP 422 quote &amp; numeric gate + MCP</td>
+                  <td>Automatic quote &amp; number verification API + MCP</td>
                 </tr>
                 <tr>
-                  <td>Provenance</td>
-                  <td>Author Datalog rules</td>
-                  <td>Built-in supersedes, relays &amp; retraction engine</td>
+                  <td>Source history</td>
+                  <td>Author logic rules</td>
+                  <td>Automatic revision, echo-chamber &amp; retraction tracking</td>
                 </tr>
                 <tr>
                   <td>Workbench</td>
                   <td>No UI</td>
-                  <td>Review queue, rational bounds &amp; partner sign-off</td>
+                  <td>Review queue, exact math proofs &amp; partner sign-off</td>
                 </tr>
                 <tr class="winner">
-                  <td>External trust</td>
+                  <td>Audit &amp; sharing</td>
                   <td>Build your own verifier</td>
-                  <td>Firm Ed25519 KMS + shareable offline verifier links</td>
+                  <td>Managed cryptographic signing + shareable verifier links</td>
                 </tr>
               </tbody>
             </table>
@@ -375,14 +375,14 @@ const { envelope, verifyUrl } = await dossier.seal("tarnwell", { proveBounds: "g
         <div class="wrap">
           <h2>Built for diligence, legal, compliance, and research teams.</h2>
           <p class="lead">
-            One associate hour of manual fact-checking pays for a month of automated 422 grounding.
+            One associate hour of manual fact-checking pays for a month of automated quote and number verification.
           </p>
 
           <div class="pricing-grid">
             <div>
               <h3>Analyst</h3>
               <div class="tier-price">$199 / mo</div>
-              <p class="tier-copy">25 sealed dossiers/mo, HTTP 422 gate, MCP server, shareable verifier links.</p>
+              <p class="tier-copy">25 sealed dossiers/mo, write-time quote check, MCP server, shareable verifier links.</p>
               <a class="btn" href="mailto:andrue.anderson.cs@gmail.com?subject=Lion%20Dossier%20Analyst">Start pilot</a>
             </div>
             <div>
