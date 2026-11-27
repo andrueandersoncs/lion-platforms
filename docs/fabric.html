@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Lion Fabric — Shared Working Memory for Agent Swarms</title>
+    <title>Lion Fabric — Stop Agent Swarms From Debugging Yesterday's Code</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -32,13 +32,13 @@
         <div class="wrap">
           <div class="hero-split">
             <div>
-              <h1>End context rot across agent swarms.</h1>
+              <h1>Stop swarms debugging yesterday's code.</h1>
               <p class="lead">
-                Pin observations to SHA-256 digests, preview edit blast radius,
-                and wake agents over push SSE.
+                When one agent patches a file, vector memory keeps serving stale
+                clues. Fabric expires stale facts instantly and cuts token spend 43%.
               </p>
               <div class="actions">
-                <a class="btn btn-primary" href="#sandbox">Try live sandbox</a>
+                <a class="btn btn-primary" href="#sandbox">Simulate a hotfix</a>
               </div>
             </div>
             <img
@@ -53,7 +53,7 @@
           <div class="proof-strip">
             <div>
               <div class="proof-figure">0%</div>
-              <p class="proof-caption">Stale errors after mid-episode file edits.</p>
+              <p class="proof-caption">Stale-evidence bugs after mid-run edits.</p>
             </div>
             <div>
               <div class="proof-figure">−43.5%</div>
@@ -61,27 +61,53 @@
             </div>
             <div>
               <div class="proof-figure">26.5 ms</div>
-              <p class="proof-caption">Push SSE wakeup when tasks unblock.</p>
+              <p class="proof-caption">Push handoff wakeup when tasks unblock.</p>
             </div>
           </div>
         </div>
       </header>
 
+      <section class="band">
+        <div class="wrap">
+          <h2>Where multi-agent swarms burn tokens in circles.</h2>
+          <div class="cases-grid">
+            <div>
+              <h3>P0 incident triage</h3>
+              <p class="case-copy">
+                When Agent A ships a hotfix, Agent B's stale logs expire automatically.
+              </p>
+            </div>
+            <div>
+              <h3>Multi-PR refactors</h3>
+              <p class="case-copy">
+                Preview which teammate assumptions break before merging a file edit.
+              </p>
+            </div>
+            <div>
+              <h3>Overnight swarms</h3>
+              <p class="case-copy">
+                Catch circular task deadlocks and cut prompt bloat by 43.5%.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="sandbox" class="chamber">
         <div class="wrap">
-          <h2>Preview an edit's blast radius.</h2>
+          <h2>Simulate an outage hotfix.</h2>
           <p class="lead">
-            Edit checkout.ts below and watch pinned observations flip stale.
+            Agent A edits checkout.ts — watch Agent B's clues expire.
           </p>
 
           <div class="instrument">
             <div>
               <div class="field">
-                <label for="fab-init">Observed version of checkout.ts</label>
+                <label for="fab-init">checkout.ts when Agent B ran checks</label>
                 <input id="fab-init" type="text" value="export const timeoutMs = 1000;" />
               </div>
               <div class="field">
-                <label for="fab-next">Proposed edit to checkout.ts</label>
+                <label for="fab-next">Agent A's hotfix to checkout.ts</label>
                 <input id="fab-next" type="text" value="export const timeoutMs = 6000;" />
               </div>
               <div class="actions" style="margin-top: 24px">
@@ -103,7 +129,7 @@
                   <span id="fab-match" class="fact-val">—</span>
                 </div>
                 <div class="fact-row">
-                  <span class="fact-key">Invalidated checks</span>
+                  <span class="fact-key">Expired findings</span>
                   <span id="fab-stale" class="fact-val">—</span>
                 </div>
               </div>
@@ -162,10 +188,10 @@
         });
         const v = $("fab-verdict");
         v.className = `verdict-word ${res.unchanged ? "ok" : "err"}`;
-        v.textContent = res.unchanged ? "All fresh" : "2 stale";
+        v.textContent = res.unchanged ? "All fresh" : "2 expired";
         $("fab-summary").textContent = res.unchanged
-          ? "Digest unchanged. Existing observations remain valid."
-          : "Digest changed. Agents are warned before using outdated checks.";
+          ? "Digest unchanged. Agent B's checks remain valid."
+          : "Digest changed. Agent B stops using stale clues.";
         $("fab-latency").textContent = `${res.latencyMs} ms`;
         $("fab-match").textContent = res.unchanged ? "Identical SHA-256" : "Changed SHA-256";
         $("fab-stale").textContent = res.wouldBecomeStale.length

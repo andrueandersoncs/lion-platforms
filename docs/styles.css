@@ -576,6 +576,28 @@ tr.winner td {
   color: var(--ink);
 }
 
+/* Concrete Use-Case Grid (3 scannable real-world scenes, zero card clutter) */
+.cases-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 44px;
+  margin-top: 44px;
+  padding-top: 36px;
+  border-top: 1px solid var(--rule);
+}
+
+.cases-grid h3 {
+  margin-bottom: 12px;
+}
+
+.case-copy {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--ink-muted);
+  max-width: 28ch;
+}
+
 /* Clean Pricing Columns (1 crisp sentence per tier — zero bullet clutter) */
 .pricing-grid {
   display: grid;
@@ -620,9 +642,13 @@ tr.winner td {
     min-height: calc(100svh - 68px);
     padding: 44px 0 56px;
   }
+  .chamber {
+    padding: 72px 0 112px;
+  }
   .hero-split,
   .ledger-row,
   .proof-strip,
+  .cases-grid,
   .instrument,
   .pricing-grid {
     grid-template-columns: 1fr;

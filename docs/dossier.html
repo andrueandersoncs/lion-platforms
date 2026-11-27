@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Lion Dossier — Proof-Carrying Research Workbench</title>
+    <title>Lion Dossier — AI Research an Investment Committee Can Sign Off On</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -32,14 +32,13 @@
         <div class="wrap">
           <div class="hero-split">
             <div>
-              <h1>Research deliverables you can prove.</h1>
+              <h1>AI memos an IC can sign.</h1>
               <p class="lead">
-                Reject misquoted figures at write time, collapse media echo chambers,
-                and deliver memos backed by exact mathematical bounds and Ed25519
-                signatures.
+                Reject misquoted numbers at write time, catch restated filings,
+                and seal exact margin ranges.
               </p>
               <div class="actions">
-                <a class="btn btn-primary" href="#sandbox">Try live sandbox</a>
+                <a class="btn btn-primary" href="#sandbox">Try a trap</a>
               </div>
             </div>
             <img
@@ -54,33 +53,59 @@
           <div class="proof-strip">
             <div>
               <div class="proof-figure">27 / 27</div>
-              <p class="proof-caption">Live Sonnet slips caught and repaired.</p>
+              <p class="proof-caption">Sonnet misquotes auto-repaired.</p>
             </div>
             <div>
               <div class="proof-figure">100%</div>
-              <p class="proof-caption">Consistent publisher attribution across 50 sources.</p>
+              <p class="proof-caption">Echo relays separated from filings.</p>
             </div>
             <div>
               <div class="proof-figure">10 / 10</div>
-              <p class="proof-caption">Ed25519 deliverables kernel-verified.</p>
+              <p class="proof-caption">Ed25519 sealed deliverables.</p>
             </div>
           </div>
         </div>
       </header>
 
+      <section class="band">
+        <div class="wrap">
+          <h2>Where one wrong number kills the deal.</h2>
+          <div class="cases-grid">
+            <div>
+              <h3>PE &amp; VC diligence</h3>
+              <p class="case-copy">
+                Stop memos citing stale press releases or three blogs echoing one leak.
+              </p>
+            </div>
+            <div>
+              <h3>Credit &amp; equity desks</h3>
+              <p class="case-copy">
+                Flag silent GAAP vs. Adjusted EBITDA mixing and prove margin bounds.
+              </p>
+            </div>
+            <div>
+              <h3>M&amp;A &amp; legal briefs</h3>
+              <p class="case-copy">
+                Trace every figure verbatim to filings with a tamper-evident seal.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="sandbox" class="chamber">
         <div class="wrap">
-          <h2>Test Lion Dossier live.</h2>
+          <h2>Catch a bad 10-K figure.</h2>
           <p class="lead">
-            Validate claims verbatim against a source filing or sign exact margin bounds.
+            Test a misquoted claim or tamper with a signed proof.
           </p>
 
           <div class="tabs" role="tablist" aria-label="Dossier demos">
             <button class="tab-btn" role="tab" aria-selected="true" id="tab-grounding" aria-controls="panel-grounding">
-              Write-time grounding
+              10-K quote gate
             </button>
             <button class="tab-btn" role="tab" aria-selected="false" id="tab-bounds" aria-controls="panel-bounds">
-              Bounds &amp; tamper proof
+              Signed margin proof
             </button>
           </div>
 
@@ -88,11 +113,11 @@
             <div class="instrument">
               <div>
                 <div class="field">
-                  <label for="dos-preset">Claim example</label>
+                  <label for="dos-preset">Analyst agent submission</label>
                   <select id="dos-preset">
-                    <option value="good">Valid claim ($240M verbatim from 10-K)</option>
-                    <option value="bad-num">Mistyped figure ($243M vs $240M in quote)</option>
-                    <option value="bad-quote">Paraphrased quote (not in filing)</option>
+                    <option value="bad-num">Mistyped figure: $243M (filing says $240M)</option>
+                    <option value="bad-quote">Fabricated quote: "organic ARR" (not in 10-K)</option>
+                    <option value="good">Grounded verbatim: $240M from FY25 10-K</option>
                   </select>
                 </div>
                 <div class="field">
@@ -101,7 +126,7 @@
                 </div>
                 <div class="field">
                   <label for="dos-val">Claimed figure ($M)</label>
-                  <input id="dos-val" type="number" value="240" />
+                  <input id="dos-val" type="number" value="243" />
                 </div>
                 <button class="btn btn-primary" type="button" id="dos-check-btn">Validate claim</button>
               </div>
@@ -234,8 +259,10 @@
         });
         const v = $("dos-verdict");
         v.className = `verdict-word ${res.accepted ? "ok" : "err"}`;
-        v.textContent = res.accepted ? "Accepted (201)" : "Rejected (422)";
-        $("dos-summary").textContent = res.reason;
+        v.textContent = res.accepted ? "Accepted (201)" : "Blocked (422)";
+        $("dos-summary").textContent = res.accepted
+          ? "Quote and number verified against 10-K."
+          : "Blocked: quote or number mismatches 10-K.";
         $("dos-http").textContent = `HTTP ${res.httpStatus} · ${res.latencyMs} ms`;
         $("dos-match").textContent = res.quoteInSource ? "Exact substring" : "Not found in filing";
         $("dos-num").textContent = res.valueFoundInQuote ? "Matched" : "Mismatch";
@@ -243,9 +270,9 @@
       };
 
       const presets = {
-        good: { quote: "Restated FY25 GAAP revenue was $240 million", val: "240" },
         "bad-num": { quote: "Restated FY25 GAAP revenue was $240 million", val: "243" },
         "bad-quote": { quote: "Management confirmed $240 million in organic ARR.", val: "240" },
+        good: { quote: "Restated FY25 GAAP revenue was $240 million", val: "240" },
       };
       $("dos-preset").addEventListener("change", () => {
         const p = presets[$("dos-preset").value];
